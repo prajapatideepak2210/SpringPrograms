@@ -1,0 +1,7 @@
+package Model;
+
+public class Employee {
+	private int id, age;
+	private String name, position;
+	
+}

@@ -1,0 +1,43 @@
+package Dao;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import Model.Employee;
+
+public class EmployeeDao {
+	private JdbcTemplate jdbcTemplate;  
+
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {  
+		this.jdbcTemplate = jdbcTemplate;  
+	}  
+
+	public boolean insertEmployee(Employee employee){  
+		String query="insert into SpringJDBC_Employee values('"+employee.getId()+"','"+employee.getName()
+		+"','"+employee.getAge()+"','"+employee.getPosition()+"')";
+		int check=jdbcTemplate.update(query);
+		if(check==1)
+			return true;
+		else
+			return false; 
+	}  
+	public boolean updateEmployee(Employee employee){  
+		String query="UPDATE SpringJDBC_Employee SET name='"+employee.getName()+"', age='"+employee.getAge()+"', position='"
+				+employee.getPosition()+"' where id='"+employee.getId()+"'";
+		//UPDATE `DEEPAK`.`SpringJDBC_Employee` SET `name`='Deepak', `age`='25' WHERE `id`='2';
+		System.out.println(query);
+		jdbcTemplate.update(query);
+		int check=jdbcTemplate.update(query);
+		if(check==1)
+			return true;
+		else
+			return false;
+	}  
+	public boolean deleteEmployee(int id){  
+		String query="delete from SpringJDBC_Employee where id='"+id+"' ";
+		int check=jdbcTemplate.update(query);
+		if(check==1)
+			return true;
+		else
+			return false;  
+	}  
+}

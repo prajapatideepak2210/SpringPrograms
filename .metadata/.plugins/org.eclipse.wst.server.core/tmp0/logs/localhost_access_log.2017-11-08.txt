@@ -1,0 +1,4 @@
+127.0.0.1 - - [08/Nov/2017:18:51:33 +0530] "GET / HTTP/1.1" 404 1000
+127.0.0.1 - - [08/Nov/2017:18:51:34 +0530] "GET /SpringJDBC/ HTTP/1.1" 200 -
+127.0.0.1 - - [08/Nov/2017:19:01:02 +0530] "GET /SpringJDBC/ HTTP/1.1" 200 151
+127.0.0.1 - - [08/Nov/2017:19:01:06 +0530] "GET /SpringJDBC/welcome.jsp?uname=tfhfshjs HTTP/1.1" 404 1044

@@ -1,0 +1,25 @@
+package Programs;
+
+import java.util.Scanner;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import Dao.EmployeeDao;
+import Model.Employee;
+
+public class DeleteEmployee {
+	public static void main(String[] args) {
+		Scanner scanner=new Scanner(System.in);
+		ApplicationContext applicationContext=new ClassPathXmlApplicationContext();
+		EmployeeDao employeeDao=(EmployeeDao) applicationContext.getBean("employeedao");
+		boolean check=false;
+		try {
+			System.out.println("Enter employee id to delete : ");
+			int id=scanner.nextInt();
+			employeeDao.deleteEmployee(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+}

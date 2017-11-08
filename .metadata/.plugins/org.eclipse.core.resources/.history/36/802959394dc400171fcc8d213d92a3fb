@@ -1,0 +1,48 @@
+package Programs;
+
+import java.util.Scanner;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import Dao.EmployeeDao;
+import Model.Employee;
+
+public class InsertEmployee {
+	@SuppressWarnings("resource")
+	public static void main(String[] args) {  
+		Scanner scanner=new Scanner(System.in);
+	    ApplicationContext ctx=new ClassPathXmlApplicationContext("applicationContext.xml");  
+	    EmployeeDao dao=(EmployeeDao)ctx.getBean("employeedao");
+	    try{
+	    System.out.println("Enter employee id : ");
+	    int id=scanner.nextInt();
+	    System.out.println("Enter employee age : ");
+	    int age=scanner.nextInt();
+	    System.out.println("Enter employee name : ");
+	    scanner.nextLine();
+	    String name=scanner.nextLine();
+	    System.out.println("Enter employee position : ");
+	    String position=scanner.nextLine();
+	    boolean status=dao.insertEmployee(new Employee(id, age, name, position));
+	    }catch (Exception e) {
+	    	e.printStackTrace();
+		}
+	    if(status){
+	    	System.out.println("Data Inserted.");
+	    }
+	    else{
+	    	System.out.println("Data is not inserted.");
+	    }
+	          
+	    /*int status=dao.updateEmployee(new Employee(102,"Sonoo",15000)); 
+	    System.out.println(status); 
+	    */  
+	          
+	    /*Employee e=new Employee(); 
+	    e.setId(102); 
+	    int status=dao.deleteEmployee(e); 
+	    System.out.println(status);*/  
+	      
+	}  
+}

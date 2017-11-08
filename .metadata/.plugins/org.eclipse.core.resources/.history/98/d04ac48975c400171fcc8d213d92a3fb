@@ -1,0 +1,10 @@
+package Programs;
+
+import Dao.EmployeeDao;
+
+public class DisplayEmployee {
+	public static void main(String[] args) {
+		EmployeeDao employeeDao=new EmployeeDao();
+		employeeDao.employeeList();
+	}
+}

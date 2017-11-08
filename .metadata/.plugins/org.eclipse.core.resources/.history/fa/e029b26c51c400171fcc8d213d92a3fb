@@ -1,0 +1,31 @@
+package Programs;
+
+import java.util.Scanner;
+
+import Dao.EmployeeDao;
+
+public class UpdateEmployee {
+	public static void main(String[] args) {
+		Scanner scanner=new Scanner(System.in);
+		EmployeeDao employeeDao=new EmployeeDao();
+		boolean check=false;
+		try{
+		System.out.println("Enter employee id : ");
+    	int id=scanner.nextInt();
+    	System.out.println("Enter employee age : ");
+    	int age=scanner.nextInt();
+    	System.out.println("Enter employee name : ");
+    	scanner.nextLine();
+    	String name=scanner.nextLine();
+    	System.out.println("Enter employee position : ");
+    	String position=scanner.nextLine();
+    	check=employeeDao.updateEmployee(id, name, age, position);
+		}catch (Exception e) {
+			System.out.println("Input is wrong, Data is not Updated.");
+		}
+		if(check)
+		{
+			System.out.println("Data Updated.");
+		}
+	}
+}

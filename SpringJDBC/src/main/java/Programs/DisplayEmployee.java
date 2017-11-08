@@ -1,0 +1,31 @@
+package Programs;
+
+import java.util.List;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import Dao.EmployeeDao;
+import Model.Employee;
+
+/**
+ * @author Deepak Prajapati
+ * 
+ * @Description This class is used to display all employee of the table. 
+ *
+ */
+public class DisplayEmployee {
+	@SuppressWarnings("resource")
+	public static void main(String[] args) {
+
+		ApplicationContext applicationContext=new ClassPathXmlApplicationContext("applicationContext.xml");  
+		EmployeeDao dao=(EmployeeDao)applicationContext.getBean("employeedao");  
+		List<Employee> list=dao.getAllEmployees();  
+
+		for(Employee employee:list)
+		{
+			System.out.println("Employee ID : "+employee.getId()+", Name : "
+					+employee.getName()+", Age : "+employee.getAge()+", Position : "+employee.getPosition());
+		}
+	}
+}

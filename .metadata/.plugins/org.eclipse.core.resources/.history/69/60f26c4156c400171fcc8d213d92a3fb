@@ -1,0 +1,16 @@
+package Programs;
+
+import java.util.Scanner;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import Dao.EmployeeDao;
+
+public class DeleteEmployee {
+	public static void main(String[] args) {
+		Scanner scanner=new Scanner(System.in);
+		ApplicationContext applicationContext=new ClassPathXmlApplicationContext();
+		EmployeeDao employeeDao=applicationContext.getBean("employeedao");
+	}
+}

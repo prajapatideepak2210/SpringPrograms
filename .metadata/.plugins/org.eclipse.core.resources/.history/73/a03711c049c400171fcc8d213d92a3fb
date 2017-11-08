@@ -1,0 +1,32 @@
+package Programs;
+
+import java.util.Scanner;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import Dao.EmployeeDao;
+import Model.Employee;
+
+public class InsertEmployee {
+	public static void main(String[] args) {  
+		Scanner scanner=new Scanner(System.in);
+	    ApplicationContext ctx=new ClassPathXmlApplicationContext("applicationContext.xml");  
+	      
+	    EmployeeDao dao=(EmployeeDao)ctx.getBean("employeedao");
+	    System.out.println("Enter employee id : ");
+	    int id=scanner.nextInt();
+	    int status=dao.saveEmployee(new Employee(, age, name, position);  
+	    System.out.println(status);  
+	          
+	    /*int status=dao.updateEmployee(new Employee(102,"Sonoo",15000)); 
+	    System.out.println(status); 
+	    */  
+	          
+	    /*Employee e=new Employee(); 
+	    e.setId(102); 
+	    int status=dao.deleteEmployee(e); 
+	    System.out.println(status);*/  
+	      
+	}  
+}
