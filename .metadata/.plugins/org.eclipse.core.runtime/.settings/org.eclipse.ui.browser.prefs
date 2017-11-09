@@ -1,2 +1,3 @@
+browsers=<?xml version\="1.0" encoding\="UTF-8"?>\n<web-browsers current\="0">\n<system/>\n<external location\="/usr/bin/firefox" name\="Firefox"/>\n<external location\="/usr/bin/google-chrome" name\="Chrome"/>\n</web-browsers>
 eclipse.preferences.version=1
-internalWebBrowserHistory=http\://localhost\:9090/SpringJDBC/welcome.jsp?uname\=tfhfshjs|*|http\://localhost\:9090/SpringJDBC/|*|
+internalWebBrowserHistory=http\://localhost\:9090/MVCExample/hello|*|http\://localhost\:9090/MVCExample/|*|http\://localhost\:9090/MVCExample/controller.Controller.java|*|http\://localhost\:9090/MVCExample/controller.Controller|*|http\://localhost\:9090/MVCExample/Controller.java|*|http\://localhost\:9090/MVCExample/hello.html|*|http\://localhost\:9090/SpringJDBC/welcome.jsp?uname\=tfhfshjs|*|http\://localhost\:9090/SpringJDBC/|*|

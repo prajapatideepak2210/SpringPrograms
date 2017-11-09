@@ -1,0 +1,12 @@
+package controller;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+import model.EmployeeBean;
+
+public class ApplicationContextApp {
+	ApplicationContext context = new FileSystemXmlApplicationContext
+	         ("C:/Users/ZARA/workspace/HelloSpring/src/Beans.xml");
+	EmployeeBean employeeBean=(EmployeeBean) context.getBean("employee");
+}

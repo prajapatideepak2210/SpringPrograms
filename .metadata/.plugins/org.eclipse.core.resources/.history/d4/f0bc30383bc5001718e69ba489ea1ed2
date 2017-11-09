@@ -1,0 +1,13 @@
+package controller;
+
+public class MainClass {
+	 public static void main(String[] args) {  
+         
+	        Resource r=new ClassPathResource("applicationContext.xml");  
+	        BeanFactory factory=new XmlBeanFactory(r);  
+	          
+	        Employee e=(Employee)factory.getBean("obj");  
+	        s.display();  
+	          
+	    }  
+}

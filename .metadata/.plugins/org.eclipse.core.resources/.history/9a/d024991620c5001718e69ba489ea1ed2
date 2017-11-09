@@ -1,0 +1,10 @@
+package controller;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.core.io.FileSystemResource;
+
+public class ApplicationContextApp {
+	ApplicationContext context = new FileSystemXmlApplicationContext
+	         ("C:/Users/ZARA/workspace/HelloSpring/src/Beans.xml");
+}

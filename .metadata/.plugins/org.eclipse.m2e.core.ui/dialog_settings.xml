@@ -45,6 +45,9 @@
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
 			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/SpringJDBC"/>
+			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/DIBySetter"/>
+			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/BeanFactoryExample"/>
+			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/ApplicationContextExample"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -57,6 +60,12 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
+			<item value="com.bridgelabz.MVCExample"/>
+			<item value="com.bridgelabz.DiByObject"/>
+			<item value="com.bridgelabz.DIBySetter"/>
+			<item value="com.bridgelabz.DIByConstructor"/>
+			<item value="com.bridgelabz.ApplicationContextExample"/>
+			<item value="com.bridgelabz.BeanFactoryExample"/>
 			<item value="com.bridgelabz.SpringHibernate"/>
 			<item value="com.bridgelabz.SpringJDBC"/>
 		</list>
@@ -64,6 +73,12 @@
 			<item value="com.bridgelabz"/>
 		</list>
 		<list key="artifactId">
+			<item value="MVCExample"/>
+			<item value="DiByObject"/>
+			<item value="DIBySetter"/>
+			<item value="DIByConstructor"/>
+			<item value="ApplicationContextExample"/>
+			<item value="BeanFactoryExample"/>
 			<item value="SpringHibernate"/>
 			<item value="SpringJDBC"/>
 		</list>
