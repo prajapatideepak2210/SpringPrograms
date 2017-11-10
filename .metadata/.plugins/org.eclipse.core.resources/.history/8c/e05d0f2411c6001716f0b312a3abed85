@@ -1,0 +1,19 @@
+<html>
+<head>
+<style type="text/css">
+.div-1{
+	color: white;
+	margin-top: 30px;
+	
+}
+</style>
+</head>
+<body>
+<h2 align="right">Hello User Welcome To Login & Registration Form!</h2>
+<div class="div-1">
+	<a>Login</a><br/>
+	<a>Logout</a><br/>
+	<a>Profile</a><br/>
+</div>
+</body>
+</html>

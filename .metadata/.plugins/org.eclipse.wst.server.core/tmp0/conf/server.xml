@@ -144,7 +144,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="/home/bridgeit/Deepak Programs/SpringPrograms/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context docBase="/home/bridgeit/Deepak Programs/SpringPrograms/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/MVCExample" path="/MVCExample" reloadable="true" source="org.eclipse.jst.j2ee.server:MVCExample"/></Host>
+      <Context docBase="/home/bridgeit/Deepak Programs/SpringPrograms/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context docBase="/home/bridgeit/Deepak Programs/SpringPrograms/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SpringMVCCrudOperation" path="/SpringMVCCrudOperation" reloadable="true" source="org.eclipse.jst.j2ee.server:SpringMVCCrudOperation"/><Context docBase="/home/bridgeit/Deepak Programs/SpringPrograms/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/LoginRegistrationForm" path="/LoginRegistrationForm" reloadable="true" source="org.eclipse.jst.j2ee.server:LoginRegistrationForm"/></Host>
     </Engine>
   </Service>
 </Server>

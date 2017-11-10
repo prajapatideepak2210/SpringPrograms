@@ -7,8 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class Controller {  
     @RequestMapping("/hello")
     public ModelAndView helloWorld() {  
-    	System.out.println("gvbcjsd bvksdb");
-        String message = "HELLO SPRING MVC HOW R U";  
+        String message = "Hello User";
         return new ModelAndView("hellopage", "message", message);
     }  
 }  
