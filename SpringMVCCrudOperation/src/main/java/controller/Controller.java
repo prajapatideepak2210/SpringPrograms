@@ -37,11 +37,13 @@ public class Controller {
 	@RequestMapping(value = "/editemp/{id}")
 	public ModelAndView edit(@PathVariable int id) {
 		EmployeeBean emp = dao.getEmpById(id);
+		System.out.println(emp.getId());
 		return new ModelAndView("empeditform", "command", emp);
 	}
 
 	@RequestMapping(value = "/editsave", method = RequestMethod.POST)
 	public ModelAndView editsave(@ModelAttribute("emp") EmployeeBean emp) {
+		System.out.println(emp.getName());
 		dao.update(emp);
 		return new ModelAndView("redirect:/viewemp");
 	}

@@ -23,7 +23,7 @@ public class EmployeeDao {
 	  
 	public void setTemplate(JdbcTemplate template) {  
 	    this.jdbcTemplate = template;  
-	}  
+	}
 	/**
 	 * @param employeeBean
 	 * @return 
@@ -59,7 +59,7 @@ public class EmployeeDao {
 			public List<EmployeeBean> extractData(ResultSet resultSet) throws SQLException,  
 			DataAccessException {  
 
-				List<EmployeeBean> list=new ArrayList<EmployeeBean>();  
+				List<EmployeeBean> list=new ArrayList<EmployeeBean>();
 				while(resultSet.next()){  
 					EmployeeBean employee=new EmployeeBean();  
 				String id = resultSet.getString(1);
