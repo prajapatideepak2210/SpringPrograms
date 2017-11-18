@@ -1,0 +1,17 @@
+package com.bridgelabz.validator;
+
+import com.bridgelabz.model.User;
+
+public interface Validator {
+	/**
+	 * @param user
+	 * @return boolean
+	 * @Description This method is used to check FirstName and LastName is correct or not. 
+	 */
+	public boolean isName(User user);
+	public boolean isPassword(User user);
+	public boolean isContactNumber(User user);
+	public boolean isUserName(User user);
+	public String isUserValid(User user);
+	
+}

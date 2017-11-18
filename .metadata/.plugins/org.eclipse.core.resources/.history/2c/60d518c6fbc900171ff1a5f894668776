@@ -1,0 +1,18 @@
+package com.bridgelabz.controller;
+
+import org.springframework.stereotype.Controller;
+
+import com.bridgelabz.model.User;
+
+@Controller
+public class LoginController {
+	/*public List<Team> getTeams() {
+    return getCurrentSession().createQuery("from Team").list();
+}
+	 */
+	public boolean getUser(User user)
+	{
+
+		return true;
+	}
+}

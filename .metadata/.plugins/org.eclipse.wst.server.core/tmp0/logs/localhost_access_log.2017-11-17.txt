@@ -1,0 +1,11 @@
+127.0.0.1 - - [17/Nov/2017:17:33:25 +0530] "GET / HTTP/1.1" 404 1000
+0:0:0:0:0:0:0:1 - - [17/Nov/2017:17:33:26 +0530] "GET /LoginRegistrationProject/ HTTP/1.1" 200 315
+0:0:0:0:0:0:0:1 - - [17/Nov/2017:17:33:26 +0530] "GET /favicon.ico HTTP/1.1" 404 1022
+0:0:0:0:0:0:0:1 - - [17/Nov/2017:17:33:31 +0530] "GET /LoginRegistrationProject/registrationform HTTP/1.1" 200 1364
+0:0:0:0:0:0:0:1 - - [17/Nov/2017:17:34:52 +0530] "POST /LoginRegistrationProject/add HTTP/1.1" 200 303
+0:0:0:0:0:0:0:1 - - [17/Nov/2017:17:35:00 +0530] "GET /LoginRegistrationProject/registrationform HTTP/1.1" 200 1364
+0:0:0:0:0:0:0:1 - - [17/Nov/2017:17:35:01 +0530] "GET /LoginRegistrationProject/loginform HTTP/1.1" 200 805
+0:0:0:0:0:0:0:1 - - [17/Nov/2017:17:35:21 +0530] "POST /LoginRegistrationProject/Userlogin HTTP/1.1" 200 298
+0:0:0:0:0:0:0:1 - - [17/Nov/2017:17:35:25 +0530] "GET /LoginRegistrationProject/loginform HTTP/1.1" 200 805
+0:0:0:0:0:0:0:1 - - [17/Nov/2017:17:35:38 +0530] "POST /LoginRegistrationProject/Userlogin HTTP/1.1" 200 805
+0:0:0:0:0:0:0:1 - - [17/Nov/2017:17:36:12 +0530] "GET /LoginRegistrationProject/loginform HTTP/1.1" 200 805

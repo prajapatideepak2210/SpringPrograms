@@ -1,0 +1,27 @@
+package com.bridgelabz.dao;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.bridgelabz.model.User;
+
+public class UserDao {
+	
+	@Autowired
+	SessionFactory factory;
+	
+	public int add(User user)
+	{
+		int i=0;
+		if(user!=null){
+		Session session= factory.openSession();
+		Transaction transaction=session.beginTransaction();
+		i=(Integer) session.save(user);
+		transaction.commit();
+		
+		session.close();
+		}
+	}
+}

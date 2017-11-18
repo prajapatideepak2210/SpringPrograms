@@ -1,0 +1,36 @@
+package com.bridgelabz.controller;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.bridgelabz.dao.UserDao;
+import com.bridgelabz.model.User;
+
+@Controller
+public class LoginController {
+	
+	@Autowired
+	UserDao userDao;
+	
+	@Autowired
+	User user;
+	/*public List<Team> getTeams() {
+    return getCurrentSession().createQuery("from Team").list();
+	}
+	 */
+	public boolean getUser(User user)
+	{
+		List<User> list=userDao.getUser();
+		Iterator<User> iterator=list.iterator();
+		while(iterator.hasNext())
+		{
+			user=iterator.next();
+			if(user.getUserName().equals(iterator))
+		}
+		
+		return true;
+	}
+}

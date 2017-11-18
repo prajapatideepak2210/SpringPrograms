@@ -1,0 +1,7 @@
+package com.bridgelabz.services;
+
+public class BookServiceImpl implements BookService{
+	public void addBook() {
+		
+	}
+}

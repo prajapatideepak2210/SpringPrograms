@@ -31,6 +31,12 @@
 		<list key="issueManagementUrl">
 		</list>
 	</section>
+	<section name="org.eclipse.m2e.core.ui.internal.dialogs.MavenRepositorySearchDialog">
+		<item value="480" key="width"/>
+		<item value="468" key="x"/>
+		<item value="24" key="y"/>
+		<item value="583" key="height"/>
+	</section>
 	<section name="MavenProjectWizardArchetypePage">
 		<item value="All Catalogs" key="catalog"/>
 		<list key="projectNameTemplate">
@@ -42,10 +48,27 @@
 			<item value="[name]"/>
 		</list>
 	</section>
+	<section name="MavenModuleWizardParentPage">
+		<list key="moduleName">
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
-			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/SpringJDBC"/>
+			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/MVCExample"/>
 			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/DIBySetter"/>
+			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/hiebrnateSpringCrud"/>
+			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/LoginRegistration/src/main/webapp/WEB-INF/jsp/Login.jsp"/>
+			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/LoginRegistration/src"/>
+			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/SpringMVCCrudOperation"/>
+			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/SpringJDBC"/>
 			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/BeanFactoryExample"/>
 			<item value="/home/bridgeit/Deepak Programs/SpringPrograms/ApplicationContextExample"/>
 		</list>
@@ -60,27 +83,13 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
-			<item value="com.bridgelabz.MVCExample"/>
-			<item value="com.bridgelabz.DiByObject"/>
-			<item value="com.bridgelabz.DIBySetter"/>
-			<item value="com.bridgelabz.DIByConstructor"/>
-			<item value="com.bridgelabz.ApplicationContextExample"/>
-			<item value="com.bridgelabz.BeanFactoryExample"/>
-			<item value="com.bridgelabz.SpringHibernate"/>
-			<item value="com.bridgelabz.SpringJDBC"/>
+			<item value="com.bridgelabz.LoginRegistrationProject"/>
 		</list>
 		<list key="groupId">
 			<item value="com.bridgelabz"/>
 		</list>
 		<list key="artifactId">
-			<item value="MVCExample"/>
-			<item value="DiByObject"/>
-			<item value="DIBySetter"/>
-			<item value="DIByConstructor"/>
-			<item value="ApplicationContextExample"/>
-			<item value="BeanFactoryExample"/>
-			<item value="SpringHibernate"/>
-			<item value="SpringJDBC"/>
+			<item value="LoginRegistrationProject"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>

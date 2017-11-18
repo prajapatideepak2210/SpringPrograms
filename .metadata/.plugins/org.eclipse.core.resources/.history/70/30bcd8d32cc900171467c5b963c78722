@@ -1,0 +1,5 @@
+package com.bridgelabz.SpringDemo.model;
+
+public class User {
+
+}

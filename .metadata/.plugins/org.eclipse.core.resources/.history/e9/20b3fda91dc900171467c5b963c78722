@@ -1,0 +1,23 @@
+<%@ page language="java" contentType="text/html; charset=US-ASCII"
+    pageEncoding="US-ASCII"%>
+<html>
+<head>
+	<style type="text/css">
+		.outerdiv{
+		margin-top: 50px;
+		color: lightblue;
+		width: 400px;
+		height: 300px;
+		}
+	</style>
+</head>
+<body bgcolor="pink">
+	<div class="">
+		<h2>Enter the Book</h2>
+		<table>
+			<tr><td>Username</td><td><input type="" ></tr>
+		</table>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+package com.bridgelabz.controller;
+
+import java.util.Iterator;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.bridgelabz.dao.UserDao;
+import com.bridgelabz.model.User;
+
+/**
+ * @author Deepak Prajapati
+ * 
+ * @Description this class is used to controlling the login process.
+ *
+ */
+@Controller
+public class LoginController {
+	
+	@Autowired
+	UserDao userDao;
+	
+	@Autowired
+	User user;
+	/*public List<Team> getTeams() {
+    return getCurrentSession().createQuery("from Team").list();
+	}
+	 */
+	/**
+	 * @param loginUser
+	 * @return boolean
+	 * @Description this method is used to checking the user is available or not in the database, 
+	 * if user is available and the user name or password is matched so it will return true otherwise return false. 
+	 */
+	public boolean getUser(User loginUser)
+	{
+		List<User> list=userDao.getUser();
+		Iterator<User> iterator=list.iterator();
+		while(iterator.hasNext())
+		{
+			user=iterator.next();
+			
+			if(user.getUserName().equals(loginUser.getUserName()) &&
+					userDao.checkPassword(loginUser.getPassword(), user.getPassword()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+}

@@ -1,0 +1,23 @@
+package com.bridgelabz.controller;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.bridgelabz.model.User;
+
+@Controller
+public class LoginController {
+	
+	@Autowired
+	User user;
+	/*public List<Team> getTeams() {
+    return getCurrentSession().createQuery("from Team").list();
+	}
+	 */
+	public boolean getUser(User user)
+	{
+		
+		return true;
+	}
+}

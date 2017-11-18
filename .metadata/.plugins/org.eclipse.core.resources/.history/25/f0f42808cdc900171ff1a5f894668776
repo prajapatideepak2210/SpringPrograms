@@ -1,0 +1,5 @@
+package com.bridgelabz.validator;
+
+public interface Validator {
+
+}

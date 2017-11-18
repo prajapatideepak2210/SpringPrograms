@@ -1,0 +1,75 @@
+package com.bridgelabz.validator;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.bridgelabz.model.User;
+
+public class ValidationImpl {
+	
+	@Autowired
+	User user;
+	
+	private boolean isName()
+	{
+		if(user.getfName().matches("[a-zA-Z]*") & user.getfName().matches("[a-zA-Z]*")){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	private boolean isPassword()
+	{
+		if(user.getPassword().length()>=8)
+		{
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	private boolean isContactNumber()
+	{
+		if(user.getContactNumber().length()==10 && user.getContactNumber().matches("[1-9]*"))
+		{
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	private boolean isUserName()
+	{
+		if(user.getUserName().matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"))
+		{
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public  isUserValid()
+	{
+		if(!isName()){
+			return "Name is not correct.";
+		}
+		else if(!isPassword()){
+			return "Password is not correct.";
+		}
+		else if(!isContactNumber()){
+			return "Contact Number is not correct";
+		}
+		else if(!isUserName()){
+			return "UserName is not correct";
+		}
+		else{
+			return "true";
+		}
+	}
+}

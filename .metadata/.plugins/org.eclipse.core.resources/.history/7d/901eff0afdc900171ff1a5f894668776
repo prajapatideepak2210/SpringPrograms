@@ -1,0 +1,47 @@
+package com.bridgelabz.dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.bridgelabz.model.User;
+
+public class UserDao {
+	
+	@Autowired
+	SessionFactory factory;
+	
+	public boolean add(User user)
+	{
+		boolean isAdd=false;
+		if(user!=null){
+			try{
+				Session session= factory.openSession();
+				Transaction transaction=session.beginTransaction();
+				session.save(user);
+				transaction.commit();
+				session.close();
+				isAdd=true;
+				return isAdd;
+			}catch(Exception e)
+			{
+				return false;
+			}
+		}
+		else{
+			return false;
+		}
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<User> getUser(User user)
+	{
+		Session session=factory.openSession();
+		List<User> list=session.createQuery("list").list();
+		return list;
+	}
+}
