@@ -1,0 +1,45 @@
+package com.bridgelabz.dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.bridgelabz.model.Book;
+
+public class BookDaoImpl implements BookDao{
+
+	@Autowired
+	SessionFactory factory;
+	
+	public boolean addBook(Book book) {
+		try {
+			Session session=factory.openSession();
+			Transaction transaction=session.beginTransaction();
+			session.save(book);
+			transaction.commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean deleteBook(int bookId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean updateBook(Book book) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public List<Book> getBook() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

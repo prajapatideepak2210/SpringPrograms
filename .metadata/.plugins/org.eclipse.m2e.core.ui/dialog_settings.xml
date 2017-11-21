@@ -83,12 +83,14 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
+			<item value="com.bridgelabz.RestAPIExample"/>
 			<item value="com.bridgelabz.LoginRegistrationProject"/>
 		</list>
 		<list key="groupId">
 			<item value="com.bridgelabz"/>
 		</list>
 		<list key="artifactId">
+			<item value="RestAPIExample"/>
 			<item value="LoginRegistrationProject"/>
 		</list>
 		<list key="projectNameTemplate">

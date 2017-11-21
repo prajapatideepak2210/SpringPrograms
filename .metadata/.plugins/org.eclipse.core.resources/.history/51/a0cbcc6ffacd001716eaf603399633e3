@@ -1,0 +1,38 @@
+package com.bridgelabz.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.bridgelabz.dao.BookDaoImpl;
+import com.bridgelabz.model.Book;
+
+public class ServicesImpl implements Services {
+
+	@Autowired
+	BookDaoImpl bookDaoImpl;
+
+	public void addItem(Book book) {
+		bookDaoImpl.addBook(book);
+	}
+
+	public void deleteItem(int bookId) {
+		bookDaoImpl.deleteBook(bookId)
+	}
+
+	public boolean updateItem(Book book) {
+		if (bookDaoImpl.updateBook(book))
+			return true;
+		else
+			return false;
+	}
+
+	public List<Book> getAllItems() {
+		List<Book> list = bookDaoImpl.getBook();
+		if (list != null)
+			return list;
+		else
+			return null;
+	}
+
+}

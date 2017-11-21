@@ -1,0 +1,29 @@
+package com.bridgelabz.dao;
+
+import java.util.List;
+
+import com.bridgelabz.model.Book;
+
+public class BookDaoImpl implements BookDao{
+
+	public boolean addBook(Book book) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean deleteBook(int bookId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean updateBook(Book book) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public List<Book> getBook() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

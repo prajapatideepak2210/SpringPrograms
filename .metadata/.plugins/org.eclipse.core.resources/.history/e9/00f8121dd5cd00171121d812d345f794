@@ -1,0 +1,33 @@
+package com.bridgelabz.dao;
+
+import java.util.List;
+
+import com.bridgelabz.model.Employee;
+
+public class EmployeeDaoImpl implements EmployeeDao{
+
+	public Employee getEmployee(String empNo) {
+		return null;
+	}
+
+	public Employee addEmployee(Employee emp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Employee updateEmployee(Employee emp) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void deleteEmployee(String empNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public List<Employee> getAllEmployees() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

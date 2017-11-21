@@ -1,0 +1,9 @@
+package com.bridgelabz.dao;
+
+import com.bridgelabz.model.Book;
+
+public interface BookDao {
+	public boolean addBook(Book book);
+	
+	public boolean deleteBook(int bookId);
+}

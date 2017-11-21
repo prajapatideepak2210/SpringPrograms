@@ -38,21 +38,13 @@ public class UserController {
 	@RequestMapping(value="/Userlogin", method=RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("Login") User user)
 	{
-		//ModelAndView view = new ModelAndView();
 		boolean islogin=loginController.getUser(user);
-		System.out.println(islogin);
 		if(islogin){
 			return new ModelAndView("profile", "command", new User());
-			/*view.addObject("name",user.getfName());
-			view.setViewName("profile");*/
-			//return view;
 		}
 		else{
 			String message="Username password mismatch";
 			return new ModelAndView("login", "message", message);
-			/*view.addObject("message",message);
-			view.setViewName("login");*/
-			//return view;
 		}
 	}
 	
@@ -68,14 +60,11 @@ public class UserController {
 		String message=validation.isUserValid(user);
 		if(message==null){
 			boolean isUserDuplicate=userDao.duplicateUser(user);
-			System.out.println("IsUserDuplicate : "+isUserDuplicate);
 			if(!isUserDuplicate)
 			{
 				String encryptedPassword=BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
-				System.out.println("Encrypted password : "+encryptedPassword);
 				user.setPassword(encryptedPassword);
 				boolean isSave=userDao.add(user);
-				System.out.println(isSave);
 				if(isSave){
 					return new ModelAndView("/regisSuccess");
 				}

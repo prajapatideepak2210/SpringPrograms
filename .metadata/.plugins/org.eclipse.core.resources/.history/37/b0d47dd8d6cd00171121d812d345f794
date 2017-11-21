@@ -1,0 +1,46 @@
+package com.bridgelabz.dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.bridgelabz.model.Employee;
+
+public class EmployeeDaoImpl implements EmployeeDao{
+
+	@Autowired
+	SessionFactory factory;
+	
+	public Employee getEmployee(String empNo) {
+		
+		return null;
+	}
+
+	public void addEmployee(Employee emp) {
+		// TODO Auto-generated method stub
+	}
+
+	public void updateEmployee(Employee emp) {
+		// TODO Auto-generated method stub
+	}
+
+	public void deleteEmployee(String empNo) {
+		Session session=factory.openSession();
+		Transaction transaction=session.beginTransaction();
+		session.delete(empNo);
+	}
+
+	public List<Employee> getAllEmployees() {
+		
+		Session session=factory.openSession();
+		Query<Employee> query = session.createQuery("from User");
+		List<Employee> list = query.list();
+		session.close();
+		return list;
+	}
+
+}

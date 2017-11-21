@@ -1,0 +1,47 @@
+package com.bridgelabz.dao;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+ 
+import org.springframework.stereotype.Repository;
+
+import com.bridgelabz.model.Employee;
+ 
+@Repository
+public interface EmployeeDao {
+ 
+ 
+    static {
+        initEmps();
+    }
+ 
+   
+    public Employee getEmployee(String empNo) {
+        return empMap.get(empNo);
+    }
+ 
+    public Employee addEmployee(Employee emp) {
+        empMap.put(emp.getEmpNo(), emp);
+        return emp;
+    }
+ 
+    public Employee updateEmployee(Employee emp) {
+        empMap.put(emp.getEmpNo(), emp);
+        return emp;
+    }
+ 
+    public void deleteEmployee(String empNo) {
+        empMap.remove(empNo);
+    }
+ 
+    public List<Employee> getAllEmployees() {
+        Collection<Employee> c = empMap.values();
+        List<Employee> list = new ArrayList<Employee>();
+        list.addAll(c);
+        return list;
+    }
+ 
+}

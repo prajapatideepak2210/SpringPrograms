@@ -1,0 +1,48 @@
+package com.bridgelabz.dao;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.bridgelabz.model.Book;
+
+@Transactional
+public class BookDaoImpl implements BookDao {
+
+	@Autowired
+	SessionFactory factory;
+
+	public void addBook(Book book) {
+		Session session = factory.getCurrentSession();
+		session.save(book);
+	}
+
+	public void deleteBook(int bookId) {
+		Session session = factory.getCurrentSession();
+		session.delete(bookId);
+	}
+
+	public void updateBook(Book book) {
+		Session session = factory.getCurrentSession();
+			session.update(book);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Book> getBook() {
+		try {
+			Session session = factory.openSession();
+			Query<Book> query = session.createQuery("from Book");
+			List<Book> list = query.list();
+			return list;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+
+}
