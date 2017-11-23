@@ -1,0 +1,8 @@
+com/bridgelabz/model/User.class
+com/bridgelabz/model/MailUser.class
+com/bridgelabz/model/Response.class
+com/bridgelabz/mailUtility/MyMailSender.class
+com/bridgelabz/controller/UserController.class
+com/bridgelabz/services/Service.class
+com/bridgelabz/dao/UserDaoImpl.class
+com/bridgelabz/dao/UserDao.class
