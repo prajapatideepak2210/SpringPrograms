@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity 
-@Table(name="Registration_Token")
+@Table(name="ToDo_User")
 public class User {
 	
 	@Id
@@ -22,7 +22,14 @@ public class User {
 	private String password;
 	private String contactNumber;
 	private String address;
+	private int isUserActive;
 	
+	public int getIsUserActive() {
+		return isUserActive;
+	}
+	public void setIsUserActive(int isUserActive) {
+		this.isUserActive = isUserActive;
+	}
 	public int getId() {
 		return id;
 	}

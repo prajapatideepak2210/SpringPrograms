@@ -9,6 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.bridgelabz.model.Note;
 import com.bridgelabz.model.User;
 
 /**
@@ -29,7 +30,6 @@ public class UserDaoImpl{
 	 */
 	public boolean add(User user)
 	{
-		boolean isAdd=false;
 		if(user!=null){
 			try{
 				Session session= factory.openSession();
@@ -37,16 +37,13 @@ public class UserDaoImpl{
 				session.save(user);
 				transaction.commit();
 				session.close();
-				isAdd=true;
-				return isAdd;
-			}catch(Exception e)
-			{
+				return true;
+			}catch(Exception e){
 				return false;
 			}
 		}
-		else{
-			return false;
-		}
+		return false;
+		
 	}
 	
 	/**
@@ -61,6 +58,29 @@ public class UserDaoImpl{
 		List<User> list = query.list();
 		session.close();
 		return list;
+	}
+	
+	
+	/**
+	 * @param userId
+	 * @return User
+	 * 
+	 * @Description It will return User if user available in database otherwise return null.
+	 */
+	@SuppressWarnings("rawtypes")
+	public User getUserById(int userId)
+	{
+		try {
+			Session session = factory.openSession();
+			Query query = session.createQuery("from User where id = :id");
+			query.setParameter("id", userId);
+			User user = (User) query.uniqueResult();
+			session.close();
+			return user;
+		} catch (Exception e) {
+			return null;
+		}
+		
 	}
 	
 	/**
@@ -81,5 +101,25 @@ public class UserDaoImpl{
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * @param user
+	 * @return boolean 
+	 * @Description this method is used to activate the user, 
+	 * it will return true if user is activated otherwise returns false.
+	 */
+	public boolean activateUser(User user)
+	{
+		try {
+			Session session = factory.openSession();
+			Transaction transaction=session.beginTransaction();
+			session.update(user);
+			transaction.commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }

@@ -6,9 +6,61 @@ import com.bridgelabz.model.MailUser;
 import com.bridgelabz.model.User;
 
 public interface Service {
-	boolean login(User user);
-	boolean add(User user);
+	/**
+	 * @param user
+	 * @return boolean
+	 * @Description This method is used to Login purpose.
+	 */
+	int login(User user);
+	
+	/**
+	 * @param user
+	 * @return boolean This method is used to register the user.
+	 */
+	boolean add(User user, String url);
+	
+	/**
+	 * @return List
+	 * @Description This method is used to get the Users list witch is available in database.
+	 */
 	public List<User> getUser();
+	
+	/**
+	 * @param user
+	 * @return boolean 
+	 * @Description It will return true if user is available otherwise return false.
+	 */
 	boolean isUserAvailable(User user);
-	boolean sendMail(MailUser mailUser);
+	
+	/**
+	 * @param userId
+	 * @return User
+	 * @Description This method is return User if user available in the database otherwise it return null.
+	 */
+	User getUserById(int userId);
+	
+	/**
+	 * @param user
+	 * @return String
+	 * @Description this method is used to get the Token.
+	 */
+	public String getToken(User user);
+	
+	/**
+	 * @param mailUser
+	 * @return boolean 
+	 * @Description This method is used to send the email, it will return true 
+	 * if mail will send otherwise return false.
+	 */
+	public boolean sendMail(MailUser mailUser);
+
+	/**
+	 * @param id
+	 * @param user
+	 * @return boolean
+	 * @Description this method will activate the user .
+	 */
+	public boolean activeUser(int id, User user);
+	
+	
 }

@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import com.bridgelabz.dao.UserDaoImpl;
 import com.bridgelabz.mailUtility.MyMailSender;
-import com.bridgelabz.model.MailUser;
+import com.bridgelabz.model.MailUser;                                    
 import com.bridgelabz.model.User;
 import com.bridgelabz.token.TokenGenerator;
 
@@ -20,7 +20,10 @@ public class ServiceImpl implements Service{
 	@Autowired
 	MyMailSender myMailSender;
 	
-	public boolean login(User loginUser) {
+	/* (non-Javadoc)
+	 * @see com.bridgelabz.services.Service#login(com.bridgelabz.model.User)
+	 */
+	public int login(User loginUser) {
 		User user=new User();
 		List<User> list=userDao.getUser();
 		Iterator<User> iterator=list.iterator();
@@ -31,26 +34,55 @@ public class ServiceImpl implements Service{
 			if(user.getUserName().equals(loginUser.getUserName()) &&
 					BCrypt.checkpw(loginUser.getPassword(), user.getPassword()))
 			{
-				return true;
+				return user.getIsUserActive();
 			}
 		}
-		return false;
+		return 2;
 	}
 
-	public boolean add(User user) {
+	/* (non-Javadoc)
+	 * @see com.bridgelabz.services.Service#add(com.bridgelabz.model.User)
+	 */
+	public boolean add(User user, String url) {
 		if(!userDao.duplicateUser(user)){
 			String password=BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 			user.setPassword(password);
-			return userDao.add(user);
+			user.setIsUserActive(0);
+			if(userDao.add(user))
+			{
+				List<User> list=getUser();
+				Iterator<User> iterator=list.iterator();
+				while (iterator.hasNext()) {
+					User findUser = (User) iterator.next();
+					if(findUser.getUserName().equals(findUser.getUserName()))
+					{
+						String token=getToken(user);
+						url = url.substring(0, url.lastIndexOf("/")) + "/active/" + token;
+						MailUser mailUser=new MailUser();
+						mailUser.setTo(user.getUserName());
+						mailUser.setSubject("Varification");
+						mailUser.setMessage(url);
+						sendMail(mailUser);
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.bridgelabz.services.Service#getUser()
+	 */
 	public List<User> getUser()
 	{
 		return userDao.getUser();
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.bridgelabz.services.Service#isUserAvailable(com.bridgelabz.model.User)
+	 */
 	public boolean isUserAvailable(User loginUser)
 	{
 		List<User> list=userDao.getUser();
@@ -59,7 +91,6 @@ public class ServiceImpl implements Service{
 		while(iterator.hasNext())
 		{
 			user=iterator.next();
-			
 			if(user.getUserName().equals(loginUser.getUserName()))
 			{
 				return true;
@@ -67,15 +98,53 @@ public class ServiceImpl implements Service{
 		}
 		return false;
 	}
-	
+
+	/**
+	 * @param mailUser
+	 * @return boolean 
+	 * @Description This method is used to send the email, it will return true 
+	 * if mail will send otherwise return false.
+	 */
 	public boolean sendMail(MailUser mailUser)
 	{
 		return myMailSender.sendMail(mailUser.getTo(), mailUser.getSubject(), mailUser.getMessage());
 		
 	}
 	
+	
+	
+	/**
+	 * @param user
+	 * @return String
+	 * @Description this method is used to get the Token.
+	 */
 	public String getToken(User user)
 	{
 		return TokenGenerator.generateToken(user.getId(), user);
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see com.bridgelabz.services.Service#getUserById(int)
+	 */
+	public User getUserById(int userId) {
+		User user=userDao.getUserById(userId);
+		if(user!=null)
+		{
+			return user;
+		}
+		return null;
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.bridgelabz.services.Service#activeUser(int, com.bridgelabz.model.User)
+	 */
+	public boolean activeUser(int id, User user) {
+		User userForActivate=userDao.getUserById(id);
+		userForActivate.setIsUserActive(1);
+		if(userDao.activateUser(userForActivate)){
+			return true;
+		}
+		return false;
 	}
 }

@@ -14,7 +14,7 @@ public class MyMailSender {
 	JavaMailSenderImpl mailSender;
   
 	
-	public boolean sendMail(String to, String message,String subject) {
+	public boolean sendMail(String to,String subject, String message) {
 		
 	      try {
 	    	  
@@ -22,7 +22,8 @@ public class MyMailSender {
 	    	  MimeMessageHelper helper = new MimeMessageHelper(msg,true,"UTF-8");
 	    	  helper.setTo(to);
 	    	  helper.setSubject(subject);
-	    	  helper.setText(message);
+	    	  String linkForToken ="click on given link to activate user "+("http://" +message);
+	    	  helper.setText(linkForToken);
 	    	  mailSender.send(msg);
 	    	  return true;
 	    	  

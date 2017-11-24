@@ -1,16 +1,10 @@
 package com.bridgelabz.model;
 
 public class MailUser {
-	private String from;
 	private String To;
 	private String subject;
 	private String message;
-	public String getFrom() {
-		return from;
-	}
-	public void setFrom(String from) {
-		this.from = from;
-	}
+	
 	public String getTo() {
 		return To;
 	}
