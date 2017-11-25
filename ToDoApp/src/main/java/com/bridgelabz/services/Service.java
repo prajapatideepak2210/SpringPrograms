@@ -2,7 +2,6 @@ package com.bridgelabz.services;
 
 import java.util.List;
 
-import com.bridgelabz.model.MailUser;
 import com.bridgelabz.model.User;
 
 public interface Service {
@@ -11,7 +10,7 @@ public interface Service {
 	 * @return boolean
 	 * @Description This method is used to Login purpose.
 	 */
-	int login(User user);
+	String login(User user);
 	
 	/**
 	 * @param user
@@ -46,13 +45,6 @@ public interface Service {
 	 */
 	public String getToken(User user);
 	
-	/**
-	 * @param mailUser
-	 * @return boolean 
-	 * @Description This method is used to send the email, it will return true 
-	 * if mail will send otherwise return false.
-	 */
-	public boolean sendMail(MailUser mailUser);
 
 	/**
 	 * @param id
@@ -62,5 +54,9 @@ public interface Service {
 	 */
 	public boolean activeUser(int id, User user);
 	
+	public User getUserByEmail(String userName);
 	
+	public boolean forgotPassword(User user, String url);
+	
+	public boolean updateUser(User user);
 }

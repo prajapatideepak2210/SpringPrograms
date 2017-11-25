@@ -1,15 +1,14 @@
 package com.bridgelabz.model;
 
 public class MailUser {
-	private String To;
+	private String to;
 	private String subject;
 	private String message;
-	
 	public String getTo() {
-		return To;
+		return to;
 	}
 	public void setTo(String to) {
-		To = to;
+		this.to = to;
 	}
 	public String getSubject() {
 		return subject;

@@ -9,7 +9,6 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.bridgelabz.model.Note;
 import com.bridgelabz.model.User;
 
 /**
@@ -20,7 +19,7 @@ import com.bridgelabz.model.User;
 public class UserDaoImpl{
 	
 	@Autowired
-	SessionFactory factory;
+	SessionFactory sessionFactory;
 	
 	/**
 	 * @param user
@@ -32,7 +31,7 @@ public class UserDaoImpl{
 	{
 		if(user!=null){
 			try{
-				Session session= factory.openSession();
+				Session session= sessionFactory.openSession();
 				Transaction transaction=session.beginTransaction();
 				session.save(user);
 				transaction.commit();
@@ -53,7 +52,7 @@ public class UserDaoImpl{
 	@SuppressWarnings("unchecked")
 	public List<User> getUser()
 	{
-		Session session=factory.openSession();
+		Session session=sessionFactory.openSession();
 		Query<User> query = session.createQuery("from User");
 		List<User> list = query.list();
 		session.close();
@@ -71,7 +70,7 @@ public class UserDaoImpl{
 	public User getUserById(int userId)
 	{
 		try {
-			Session session = factory.openSession();
+			Session session = sessionFactory.openSession();
 			Query query = session.createQuery("from User where id = :id");
 			query.setParameter("id", userId);
 			User user = (User) query.uniqueResult();
@@ -112,7 +111,7 @@ public class UserDaoImpl{
 	public boolean activateUser(User user)
 	{
 		try {
-			Session session = factory.openSession();
+			Session session = sessionFactory.openSession();
 			Transaction transaction=session.beginTransaction();
 			session.update(user);
 			transaction.commit();
@@ -121,5 +120,35 @@ public class UserDaoImpl{
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	
+	@SuppressWarnings("rawtypes")
+	public User getUserByUserName(String userName)
+	{
+		try {
+			Session session = sessionFactory.openSession();
+			Query query = session.createQuery("from User where userName = :userName");
+			query.setParameter("userName", userName);
+			User user = (User) query.uniqueResult();
+			session.close();
+			return user;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public boolean update(User user) {
+		try {
+			Session session=sessionFactory.openSession();
+			Transaction transaction=session.beginTransaction();
+			session.update(user);
+			transaction.commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
 	}
 }

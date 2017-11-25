@@ -10,19 +10,29 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * @author Deepak Prajapati
+ *
+ */
 @Entity 
 @Table(name="ToDo_Note")
 public class Note {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO, generator="myGenerator")
-	@GenericGenerator(name="myGenerator", strategy="native")
+	@GeneratedValue(strategy=GenerationType.AUTO , generator="mygenerator")
+	@GenericGenerator(name="mygenerator", strategy="native")
 	private int id;
 	private String name;
 	private String title;
 	private String description;
-	
 	private Date createdDate;
+	private Date lastUpdate;
 	
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
 	public String getDescription() {
 		return description;
 	}

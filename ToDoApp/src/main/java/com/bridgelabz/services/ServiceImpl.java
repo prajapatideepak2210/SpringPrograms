@@ -23,7 +23,7 @@ public class ServiceImpl implements Service{
 	/* (non-Javadoc)
 	 * @see com.bridgelabz.services.Service#login(com.bridgelabz.model.User)
 	 */
-	public int login(User loginUser) {
+	public String login(User loginUser) {
 		User user=new User();
 		List<User> list=userDao.getUser();
 		Iterator<User> iterator=list.iterator();
@@ -34,10 +34,14 @@ public class ServiceImpl implements Service{
 			if(user.getUserName().equals(loginUser.getUserName()) &&
 					BCrypt.checkpw(loginUser.getPassword(), user.getPassword()))
 			{
-				return user.getIsUserActive();
+				if(user.getIsUserActive()==1)
+				{
+					return user.getUserName();
+				}
+				return null;
 			}
 		}
-		return 2;
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -146,5 +150,28 @@ public class ServiceImpl implements Service{
 			return true;
 		}
 		return false;
+	}
+	
+	public User getUserByEmail(String userName)
+	{
+		User user=userDao.getUserByUserName(userName);
+		if(user!=null)
+		{
+			return user;
+		}
+		return null;
+	}
+	
+	public boolean forgotPassword(User user, String url)
+	{
+		int userId=user.getId();
+		String token=TokenGenerator.generateToken(userId, user);
+		url = url.substring(0, url.lastIndexOf("/")) + "/verifyUser/" + token;
+		return myMailSender.sendMail(user.getUserName(), "Verification for password", url);
+	}
+	
+	public boolean updateUser(User user)
+	{
+		return userDao.update(user);
 	}
 }

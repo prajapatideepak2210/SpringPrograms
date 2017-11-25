@@ -28,10 +28,6 @@ public class TokenGenerator {
 
 	public static int verifyToken(String token) {
 		Claims claims = Jwts.parser().setSigningKey(secretekey).parseClaimsJws(token).getBody();
-		System.out.println("ID: " + claims.getId());
-		System.out.println("Subject: " + claims.getSubject());
-		System.out.println("Issuer: " + claims.getIssuer());
-		System.out.println("Expiration: " + claims.getExpiration());
 		return Integer.parseInt(claims.getId());
 	}
 	
