@@ -12,6 +12,7 @@ import com.bridgelabz.model.MailUser;
 import com.bridgelabz.model.User;
 import com.bridgelabz.token.TokenGenerator;
 
+@org.springframework.stereotype.Service
 public class ServiceImpl implements Service{
 	
 	@Autowired
@@ -47,12 +48,14 @@ public class ServiceImpl implements Service{
 	/* (non-Javadoc)
 	 * @see com.bridgelabz.services.Service#add(com.bridgelabz.model.User)
 	 */
-	public boolean add(User user, String url) {
-		if(!userDao.duplicateUser(user)){
+	public User add(User user, String url) {
+		User checkUser=userDao.duplicateUser(user);
+		if(checkUser==null){
 			String password=BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
 			user.setPassword(password);
 			user.setIsUserActive(0);
-			if(userDao.add(user))
+			int userId=userDao.add(user);
+			if(userId!=0)
 			{
 				List<User> list=getUser();
 				Iterator<User> iterator=list.iterator();
@@ -67,13 +70,18 @@ public class ServiceImpl implements Service{
 						mailUser.setSubject("Varification");
 						mailUser.setMessage(url);
 						sendMail(mailUser);
-						return true;
+						return user;
 					}
 				}
 			}
-			return false;
+			return checkUser;
 		}
-		return false;
+		return checkUser;
+	}
+	
+	public int addSocialUser(User user)
+	{
+		return userDao.add(user);
 	}
 	
 	/* (non-Javadoc)
@@ -143,13 +151,14 @@ public class ServiceImpl implements Service{
 	/* (non-Javadoc)
 	 * @see com.bridgelabz.services.Service#activeUser(int, com.bridgelabz.model.User)
 	 */
-	public boolean activeUser(int id, User user) {
+	public User activeUser(int id, User user) {
 		User userForActivate=userDao.getUserById(id);
 		userForActivate.setIsUserActive(1);
-		if(userDao.activateUser(userForActivate)){
-			return true;
+		User checkUser=userDao.update(userForActivate);
+		if(checkUser!=null){
+			return checkUser;
 		}
-		return false;
+		return checkUser;
 	}
 	
 	public User getUserByEmail(String userName)
@@ -170,7 +179,7 @@ public class ServiceImpl implements Service{
 		return myMailSender.sendMail(user.getUserName(), "Verification for password", url);
 	}
 	
-	public boolean updateUser(User user)
+	public User updateUser(User user)
 	{
 		return userDao.update(user);
 	}

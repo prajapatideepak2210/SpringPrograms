@@ -21,12 +21,19 @@ public class Note {
 	@GeneratedValue(strategy=GenerationType.AUTO , generator="mygenerator")
 	@GenericGenerator(name="mygenerator", strategy="native")
 	private int id;
-	private String name;
 	private String title;
 	private String description;
 	private Date createdDate;
 	private Date lastUpdate;
+	private int user_id;
 	
+	
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
 	public Date getLastUpdate() {
 		return lastUpdate;
 	}
@@ -51,17 +58,10 @@ public class Note {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
 }

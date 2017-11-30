@@ -16,7 +16,7 @@ public interface NoteService {
 	 * @Description This method is used to add the note, 
 	 * it returns true if note added and returns false if note is not added.
 	 */
-	boolean addNote(Note note);
+	int addNote(Note note, String token);
 	
 	/**
 	 * @param noteId
@@ -24,7 +24,7 @@ public interface NoteService {
 	 * @Description This method is used to delete the note, 
 	 * it returns true if note deleted and returns false if note is not deleted.
 	 */
-	boolean deleteNote(int noteId);
+	int deleteNote(int noteId);
 	
 	/**
 	 * @param note
@@ -32,7 +32,7 @@ public interface NoteService {
 	 * @Description This method is used to update the note, 
 	 * it returns true if note updated and returns false if note is not updated..
 	 */
-	boolean updateNote(Note note);
+	Note updateNote(Note note);
 	
 	/**
 	 * @return {@link List}

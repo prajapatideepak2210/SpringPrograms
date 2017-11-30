@@ -16,7 +16,7 @@ public interface Service {
 	 * @param user
 	 * @return boolean This method is used to register the user.
 	 */
-	boolean add(User user, String url);
+	User add(User user, String url);
 	
 	/**
 	 * @return List
@@ -52,11 +52,13 @@ public interface Service {
 	 * @return boolean
 	 * @Description this method will activate the user .
 	 */
-	public boolean activeUser(int id, User user);
+	public int addSocialUser(User user);
+	
+	public User activeUser(int id, User user);
 	
 	public User getUserByEmail(String userName);
 	
 	public boolean forgotPassword(User user, String url);
 	
-	public boolean updateUser(User user);
+	public User updateUser(User user);
 }

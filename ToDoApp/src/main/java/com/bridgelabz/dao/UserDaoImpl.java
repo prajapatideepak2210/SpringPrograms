@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.bridgelabz.model.User;
 
@@ -16,7 +17,8 @@ import com.bridgelabz.model.User;
  * @Description This class is used to control all database operation.
  *
  */
-public class UserDaoImpl{
+@Repository
+public class UserDaoImpl implements UserDao{
 	
 	@Autowired
 	SessionFactory sessionFactory;
@@ -27,22 +29,22 @@ public class UserDaoImpl{
 	 * @Description This method is used to add the users into the database. 
 	 * It returns true if data is inserted, otherwise it returns false.
 	 */
-	public boolean add(User user)
+	public int add(User user)
 	{
+		int userId=0;
 		if(user!=null){
 			try{
 				Session session= sessionFactory.openSession();
 				Transaction transaction=session.beginTransaction();
-				session.save(user);
+				userId=(Integer) session.save(user);
 				transaction.commit();
 				session.close();
-				return true;
+				return userId;
 			}catch(Exception e){
-				return false;
+				return userId;
 			}
 		}
-		return false;
-		
+		return userId;
 	}
 	
 	/**
@@ -54,7 +56,7 @@ public class UserDaoImpl{
 	{
 		Session session=sessionFactory.openSession();
 		Query<User> query = session.createQuery("from User");
-		List<User> list = query.list();
+		List<User> list = (List<User>)query.list();
 		session.close();
 		return list;
 	}
@@ -88,7 +90,7 @@ public class UserDaoImpl{
 	 * @Description This method is used to check user is duplicate or not.
 	 * If user is duplicate than it returns true otherwise false.
 	 */
-	public boolean duplicateUser(User user) {
+	public User duplicateUser(User user) {
 		List<User> list=getUser();
 		Iterator<User> iterator=list.iterator();
 		while (iterator.hasNext()) {
@@ -96,10 +98,10 @@ public class UserDaoImpl{
 			if(user.getContactNumber().equals(userForDuplicate.getContactNumber()) ||
 					user.getUserName().equals(userForDuplicate.getUserName()))
 			{
-				return true;
+				return user;
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	/**
@@ -108,19 +110,6 @@ public class UserDaoImpl{
 	 * @Description this method is used to activate the user, 
 	 * it will return true if user is activated otherwise returns false.
 	 */
-	public boolean activateUser(User user)
-	{
-		try {
-			Session session = sessionFactory.openSession();
-			Transaction transaction=session.beginTransaction();
-			session.update(user);
-			transaction.commit();
-			session.close();
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-	}
 	
 	
 	@SuppressWarnings("rawtypes")
@@ -138,17 +127,16 @@ public class UserDaoImpl{
 		}
 	}
 
-	public boolean update(User user) {
+	public User update(User user) {
 		try {
 			Session session=sessionFactory.openSession();
 			Transaction transaction=session.beginTransaction();
 			session.update(user);
 			transaction.commit();
 			session.close();
-			return true;
+			return user;
 		} catch (Exception e) {
-			return false;
+			return null;
 		}
-		
 	}
 }

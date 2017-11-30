@@ -46,7 +46,8 @@ public class UserController {
 		String message = Validator.isUserValid(user);
 		String url = request.getRequestURL().toString();
 		if (message == null) {
-			if (serviceImpl.add(user, url)) {
+			User checkUser=serviceImpl.add(user, url);
+			if (checkUser!=null) {
 
 				response.setMessage(
 						"User Successfully Registered, user got a mail for verifing please go there and verify.");
@@ -91,17 +92,6 @@ public class UserController {
 		return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
 	}
 
-	/*
-	 * @RequestMapping(value="/mail", method=RequestMethod.POST) public
-	 * ResponseEntity<Response> email(@RequestBody MailUser mailUser) {
-	 * if(serviceImpl.sendMail(mailUser)) { Response response=new Response();
-	 * response.setMessage("User SuccessFully sent."); return new
-	 * ResponseEntity<Response>(response, HttpStatus.ACCEPTED); } else{ Response
-	 * response=new Response(); response.setMessage("Mail not sent."); return
-	 * new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST); }
-	 * 
-	 * }
-	 */
 
 	@RequestMapping(value = "/active/{jwt:.+}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> verifyToken(@PathVariable("jwt") String token) {
@@ -168,8 +158,8 @@ public class UserController {
 			User user=serviceImpl.getUserById(id);
 			String securePassword=BCrypt.hashpw(passwordUser.getPassword(), BCrypt.gensalt());
 			user.setPassword(securePassword);
-			boolean check=serviceImpl.updateUser(user);
-			if(check)
+			User checkUser=serviceImpl.updateUser(user);
+			if(checkUser!=null)
 			{
 				response.setMessage("Password Reset Successfully.");
 				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);

@@ -6,7 +6,6 @@ import java.util.Date;
 import com.bridgelabz.model.User;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -22,7 +21,6 @@ public class TokenGenerator {
 		Date expireTime = calender.getTime();
 		String token = Jwts.builder().setId(Integer.toString(userId)).setIssuedAt(dateAndTime).setIssuer(issuerTime).setExpiration(expireTime)
 				.signWith(SignatureAlgorithm.HS256, secretekey).compact().toString();
-		System.out.println("Token : " + token.toString());
 		return token;
 	}
 
