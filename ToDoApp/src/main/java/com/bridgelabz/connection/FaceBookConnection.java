@@ -64,7 +64,6 @@ public class FaceBookConnection {
 		
 		String fbgetUserURL = "https://graph.facebook.com/v2.9/me?access_token=" + fbAccessToken
 				+ "&fields=id,name,email,picture";
-		System.out.println("fb get user details " + fbgetUserURL);
 		ResteasyClient restCall = new ResteasyClientBuilder().build();
 		ResteasyWebTarget target = restCall.target(fbgetUserURL);
 

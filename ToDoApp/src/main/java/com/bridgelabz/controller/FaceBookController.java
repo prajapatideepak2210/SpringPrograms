@@ -69,7 +69,6 @@ public class FaceBookController {
 			user.setPassword("");
 			user.setIsUserActive(1);
 			int userId=serviceImpl.addSocialUser(user);
-			System.out.println("This is new user whose id : "+userId);
 			if(userId>0) {
 				String token = TokenGenerator.generateToken(user.getId(), user);
     			response.setHeader("Authorization", token);

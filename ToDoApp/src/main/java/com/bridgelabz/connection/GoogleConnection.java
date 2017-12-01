@@ -25,27 +25,23 @@ public class GoogleConnection {
 	// Access token in header
 	public static String Gmail_GET_USER_URL = "https://www.googleapis.com/plus/v1/people/me";
 
-	public static String getGoogleAuthURL(String unid) {
+	public static String getGoogleAuthURL(String uuid) {
 
 		String googleLoginURL = "";
-
 		try {
 			googleLoginURL = "https://accounts.google.com/o/oauth2/auth?client_id=" + CLIENT_Id + "&redirect_uri="
-					+ URLEncoder.encode(Redirect_URI, "UTF-8") + "&state=" + unid
+					+ URLEncoder.encode(Redirect_URI, "UTF-8") + "&state=" + uuid
 					+ "&response_type=code&scope=profile email&approval_prompt=force&access_type=offline";
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		System.out.println("inside google authentication" + googleLoginURL);
 		return googleLoginURL;
 	}
 
 	public static  String getAccessToken(String authCode) {
 
 		String accessTokenURL = "https://accounts.google.com/o/oauth2/token";
-
 		ResteasyClient restCall = new ResteasyClientBuilder().build();
-
 		ResteasyWebTarget target = restCall.target(accessTokenURL);
 
 		Form form = new Form();
@@ -57,24 +53,21 @@ public class GoogleConnection {
 		// using post request we are sending an data to web service and getting
 		// json response backGoogleConnection
 		Response response = target.request().accept(MediaType.APPLICATION_JSON).post(Entity.form(form));
-
 		String token = response.readEntity(String.class);
 		
 		ObjectMapper mapper=new ObjectMapper();
-		String acc_token = null;
+		String access_token = null;
 		try {
-			acc_token = mapper.readTree(token).get("access_token").asText();
+			access_token = mapper.readTree(token).get("access_token").asText();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		restCall.close();
-		/*return googlemailTokens.getAccess_token();*/
-		return acc_token;
+		return access_token;
 	}
 
 	public static JsonNode getUserProfile(String accessToken) {
 
-		System.out.println("gmail details " + Gmail_GET_USER_URL);
 		ResteasyClient restCall = new ResteasyClientBuilder().build();
 		ResteasyWebTarget target = restCall.target(Gmail_GET_USER_URL);
 
@@ -94,6 +87,4 @@ public class GoogleConnection {
 		restCall.close();
 		return Googleprofile;
 	}
-
-
 }
