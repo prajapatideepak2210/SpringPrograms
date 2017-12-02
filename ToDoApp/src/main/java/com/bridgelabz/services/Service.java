@@ -2,6 +2,7 @@ package com.bridgelabz.services;
 
 import java.util.List;
 
+import com.bridgelabz.model.MailUser;
 import com.bridgelabz.model.User;
 
 public interface Service {
@@ -53,6 +54,8 @@ public interface Service {
 	 * @Description this method will activate the user .
 	 */
 	public int addSocialUser(User user);
+	
+	public boolean sendMail(MailUser mailUser);
 	
 	public User activeUser(int id, User user);
 	

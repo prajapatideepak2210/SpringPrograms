@@ -21,6 +21,9 @@ public class ServiceImpl implements Service{
 	@Autowired
 	MyMailSender myMailSender;
 	
+	@Autowired
+	MessageProducer messageProducer;
+	
 	/* (non-Javadoc)
 	 * @see com.bridgelabz.services.Service#login(com.bridgelabz.model.User)
 	 */
@@ -69,7 +72,10 @@ public class ServiceImpl implements Service{
 						mailUser.setTo(user.getUserName());
 						mailUser.setSubject("Varification");
 						mailUser.setMessage(url);
-						sendMail(mailUser);
+						System.out.println("befor sending the mail");
+						messageProducer.send(mailUser);
+						System.out.println("after sending the mail");
+						/*sendMail(mailUser);*/
 						return user;
 					}
 				}

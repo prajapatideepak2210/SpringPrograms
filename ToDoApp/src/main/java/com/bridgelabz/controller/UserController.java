@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabz.model.PasswordUser;
 import com.bridgelabz.model.Response;
 import com.bridgelabz.model.User;
+import com.bridgelabz.services.MessageProducer;
 import com.bridgelabz.services.Service;
 import com.bridgelabz.token.TokenGenerator;
 import com.bridgelabz.validator.Validator;
@@ -32,6 +33,9 @@ import com.bridgelabz.validator.Validator;
 public class UserController {
 	@Autowired
 	Service serviceImpl;
+	
+	@Autowired
+	MessageProducer messageProducer;
 
 	@RequestMapping(value = "/getUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<User> getUser() {
@@ -39,7 +43,7 @@ public class UserController {
 		return list;
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> addUser(@RequestBody User user, HttpServletRequest request) {
 
 		Response response = new Response();

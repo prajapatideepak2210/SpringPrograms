@@ -1,6 +1,9 @@
 package com.bridgelabz.model;
 
-public class MailUser {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class MailUser implements Serializable {
 	private String to;
 	private String subject;
 	private String message;

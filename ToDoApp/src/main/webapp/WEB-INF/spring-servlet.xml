@@ -4,11 +4,14 @@
 		xmlns:context="http://www.springframework.org/schema/context" 
 		xmlns:mvc="http://www.springframework.org/schema/mvc" 
 		xmlns:tx="http://www.springframework.org/schema/tx" 
+		xmlns:jms="http://www.springframework.org/schema/jms"
 		xsi:schemaLocation="http://www.springframework.org/schema/beans 
 		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd 
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd 
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd 
+		http://www.springframework.org/schema/jms  
+    http://www.springframework.org/schema/jms/spring-jms-3.0.xsd">
 
 	<context:component-scan base-package="com.bridgelabz"></context:component-scan>
 	<tx:annotation-driven transaction-manager="txManager" />
@@ -56,6 +59,45 @@
 			</props>
 		</property>
 	</bean>
+	
+	<!-- from here star for the jms  -->
+	
+	<bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<!-- brokerURL, You may have different IP or port -->
+		<constructor-arg index="0" value="tcp://localhost:61616" />
+	</bean>
+
+	<!-- Pooled Spring connection factory -->
+	<bean id="connectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory">
+		<constructor-arg ref="amqConnectionFactory" />
+	</bean>
+
+	
+	<bean id="defaultDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<!-- name of the queue -->
+		<constructor-arg index="0" value="messageQueue" />
+	</bean>
+	
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultDestination" ref="defaultDestination" />
+	</bean>
+
+	
+	<bean id="jmsListenerContainerFactory"
+		class="org.springframework.jms.config.DefaultJmsListenerContainerFactory">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="concurrency" value="3-10" />
+	</bean>
+	
+	<bean id="messageProducer" class="com.bridgelabz.services.MessageProducer"/>	
+	<bean id="consumer" class="com.bridgelabz.services.MessageConsumer"/>	
+	
+	<jms:listener-container container-type="default" connection-factory="connectionFactory"  
+ acknowledge="auto">  
+<jms:listener destination="messageQueue" ref="consumer" method="onMessage"></jms:listener>
+</jms:listener-container>
 	<!-- <bean id="myMailSender" class="com.bridgelabz.mailUtility.MyMailSender"/>
 	<bean id="userDao" class="com.bridgelabz.dao.UserDaoImpl"/>
 	<bean id="serviceImpl" class="com.bridgelabz.services.ServiceImpl"/>
