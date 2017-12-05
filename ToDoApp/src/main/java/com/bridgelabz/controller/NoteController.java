@@ -56,8 +56,9 @@ public class NoteController {
 	}
 
 	@RequestMapping(value = "/updateNote/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> updateNote(@RequestBody Note note) {
+	public ResponseEntity<Response> updateNote(@RequestBody Note note, @PathVariable int id) {
 		Response response = new Response();
+		note.setId(id);
 		Note checkNote=noteService.updateNote(note);
 		if (checkNote!=null) {
 			response.setMessage("Note Successfully Updated.");

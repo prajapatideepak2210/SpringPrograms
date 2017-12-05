@@ -21,11 +21,9 @@ public class MessageConsumer implements MessageListener{
 	public void onMessage(Message message) {
 		
 		try {
-			System.out.println("In consumer");
 			ObjectMessage msg = (ObjectMessage)message;
 			MailUser mail = (MailUser) msg.getObject();
-			myMailSender.sendMail(mail.getTo(), 
-					mail.getSubject(),mail.getMessage());
+			myMailSender.sendMail(mail.getTo(), mail.getSubject(), mail.getMessage());
 		} catch (JMSException e) {
 			e.printStackTrace();
 		}

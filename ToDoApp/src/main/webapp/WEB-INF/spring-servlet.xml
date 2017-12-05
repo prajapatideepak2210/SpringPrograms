@@ -92,7 +92,7 @@
 	</bean>
 	
 	<bean id="messageProducer" class="com.bridgelabz.services.MessageProducer"/>	
-	<bean id="consumer" class="com.bridgelabz.services.MessageConsumer"/>	
+	<bean id="consumer" class="com.bridgelabz.services.MessageConsumer"/>
 	
 	<jms:listener-container container-type="default" connection-factory="connectionFactory"  
  acknowledge="auto">  

@@ -86,6 +86,8 @@ public class NoteDaoImpl implements NoteDao {
 			Note noteForGetCreatedDate = (Note) query.uniqueResult();
 			Date createdDate = noteForGetCreatedDate.getCreatedDate();
 			note.setCreatedDate(createdDate);
+			int user_id=noteForGetCreatedDate.getUser_id();
+			note.setUser_id(user_id);
 			tempSession.close();
 
 			session.update(note);
