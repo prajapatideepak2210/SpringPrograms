@@ -17,6 +17,17 @@
 	<tx:annotation-driven transaction-manager="txManager" />
 	<mvc:annotation-driven />
 	
+	<!-- All the frontend content start from here -->
+
+<mvc:resources location="/bower_components/" mapping="/bower_components/**"/>
+<mvc:resources location="/controller/" mapping="/controller/**"/>
+<mvc:resources location="/css/" mapping="/css/**"/>
+<mvc:resources location="/directive/" mapping="/directive/**"/>
+<mvc:resources location="/image/" mapping="/image/**"/>
+<mvc:resources location="/script/" mapping="/script/**"/>
+<mvc:resources location="/service/" mapping="/service/**"/>
+<mvc:resources location="/template/" mapping="/template/**"/>
+	
 	<bean id="datasource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
@@ -24,8 +35,6 @@
 		<property name="username" value="root"></property>
 		<property name="password" value="password"></property>
 	</bean>
-
-	
 	
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
@@ -60,11 +69,11 @@
 		</property>
 	</bean>
 	
-	<!-- from here star for the jms  -->
+	<!-- From here star about the java message service -->
 	
 	<bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
 		<!-- brokerURL, You may have different IP or port -->
-		<constructor-arg index="0" value="tcp://localhost:8161" />
+		<constructor-arg index="0" value="tcp://localhost:61616" />
 	</bean>
 
 	<!-- Pooled Spring connection factory -->
@@ -72,18 +81,16 @@
 		class="org.springframework.jms.connection.CachingConnectionFactory">
 		<constructor-arg ref="amqConnectionFactory" />
 	</bean>
-
 	
 	<bean id="defaultDestination" class="org.apache.activemq.command.ActiveMQQueue">
 		<!-- name of the queue -->
-		<constructor-arg index="0" value="myQueue" />
+		<constructor-arg index="0" value="messageQueue" />
 	</bean>
 	
 	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
 		<property name="defaultDestination" ref="defaultDestination" />
 	</bean>
-
 	
 	<bean id="jmsListenerContainerFactory"
 		class="org.springframework.jms.config.DefaultJmsListenerContainerFactory">
@@ -92,16 +99,14 @@
 	</bean>
 	
 	<bean id="messageProducer" class="com.bridgelabz.services.MessageProducer"/>	
-	<bean id="consumer" class="com.bridgelabz.services.MessageConsumer"/>	
+	<bean id="consumer" class="com.bridgelabz.services.MessageConsumer"/>
 	
 	<jms:listener-container container-type="default" connection-factory="connectionFactory"  
  acknowledge="auto">  
-<jms:listener destination="myQueue" ref="consumer" method="onMessage"></jms:listener>  
+<jms:listener destination="messageQueue" ref="consumer" method="onMessage"></jms:listener>
 </jms:listener-container>
-	<!-- <bean id="myMailSender" class="com.bridgelabz.mailUtility.MyMailSender"/>
-	<bean id="userDao" class="com.bridgelabz.dao.UserDaoImpl"/>
-	<bean id="serviceImpl" class="com.bridgelabz.services.ServiceImpl"/>
-	<bean id="noteDao" class="com.bridgelabz.dao.NoteDaoImpl"/>
-	<bean id="noteService" class="com.bridgelabz.services.NoteServiceImpl"/> -->
+
+
+
 
 </beans>  

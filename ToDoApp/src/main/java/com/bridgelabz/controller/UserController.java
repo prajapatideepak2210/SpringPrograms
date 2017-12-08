@@ -66,7 +66,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> login(@RequestBody User user, HttpSession session) {
-
 		if (serviceImpl.isUserAvailable(user)) {
 			String userName = serviceImpl.login(user);
 			if (userName != null) {

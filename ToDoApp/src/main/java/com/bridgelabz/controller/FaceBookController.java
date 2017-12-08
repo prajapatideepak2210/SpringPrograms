@@ -37,7 +37,7 @@ public class FaceBookController {
 	}
 	
 	@RequestMapping(value="/connectFB")
-	public ResponseEntity<Response> redirectURL(HttpServletRequest request,HttpServletResponse response,HttpSession session,UriComponentsBuilder ucBuilder) throws IOException
+	public void redirectURL(HttpServletRequest request,HttpServletResponse response,HttpSession session,UriComponentsBuilder ucBuilder) throws IOException
 	{
 		Response errorMessage = new Response();
 		String sessionState = (String) request.getSession().getAttribute("State");
@@ -51,7 +51,6 @@ public class FaceBookController {
 		String error = request.getParameter("error");
 		if (error != null && error.trim().isEmpty()) {
 			errorMessage.setMessage("Error occured Try again.");
-			return new ResponseEntity<Response>(errorMessage, HttpStatus.BAD_REQUEST);
 		}
 		
 		String authCode = request.getParameter("code");
@@ -74,12 +73,12 @@ public class FaceBookController {
     			response.setHeader("Authorization", token);
     			session.setAttribute("token", token);
     			errorMessage.setMessage("User Successfully registered.");
-    			return new ResponseEntity<Response>(errorMessage, HttpStatus.ACCEPTED);
+    			response.sendRedirect("http://localhost:9090/ToDoApp/#!/home.html");
  			}
 			else
 			{
 				errorMessage.setMessage("User is not registered.");
-    			return new ResponseEntity<Response>(errorMessage, HttpStatus.BAD_REQUEST);
+				response.sendRedirect("http://localhost:9090/ToDoApp/#!/login.html");
 			}
 		}else {
 			
@@ -87,7 +86,7 @@ public class FaceBookController {
 			serviceImpl.updateUser(user);
 			session.setAttribute("token", token);
 			errorMessage.setMessage("User already exist.");
-			return new ResponseEntity<Response>(errorMessage, HttpStatus.ALREADY_REPORTED);
+			response.sendRedirect("http://localhost:9090/ToDoApp/#!/dummy");
 		}
 	}
 }

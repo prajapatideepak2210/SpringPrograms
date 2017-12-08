@@ -34,7 +34,6 @@ public class ServiceImpl implements Service{
 		while(iterator.hasNext())
 		{
 			user=iterator.next();
-			
 			if(user.getUserName().equals(loginUser.getUserName()) &&
 					BCrypt.checkpw(loginUser.getPassword(), user.getPassword()))
 			{
@@ -72,9 +71,7 @@ public class ServiceImpl implements Service{
 						mailUser.setTo(user.getUserName());
 						mailUser.setSubject("Varification");
 						mailUser.setMessage(url);
-						System.out.println("befor sending the mail");
 						messageProducer.send(mailUser);
-						System.out.println("after sending the mail");
 						/*sendMail(mailUser);*/
 						return user;
 					}
@@ -103,6 +100,7 @@ public class ServiceImpl implements Service{
 	 */
 	public boolean isUserAvailable(User loginUser)
 	{
+		System.out.println(loginUser.getUserName());
 		List<User> list=userDao.getUser();
 		Iterator<User> iterator=list.iterator();
 		User user=new User();
