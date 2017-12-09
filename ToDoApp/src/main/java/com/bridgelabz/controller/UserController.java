@@ -1,8 +1,10 @@
 package com.bridgelabz.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,7 @@ public class UserController {
 	public ResponseEntity<Response> addUser(@RequestBody User user, HttpServletRequest request) {
 
 		Response response = new Response();
+		System.out.println(user.getfName()+","+user.getlName()+", "+user.getContactNumber()+", "+user.getUserName()+", "+user.getAddress());
 		String message = Validator.isUserValid(user);
 		String url = request.getRequestURL().toString();
 		if (message == null) {
@@ -71,7 +74,9 @@ public class UserController {
 			if (userName != null) {
 				Response response = new Response();
 				session.setAttribute("user", userName);
-				response.setMessage("User SuccessFully Logedin.");
+				User userForToken=serviceImpl.getUserByEmail(user.getUserName());
+				String token = TokenGenerator.generateToken(userForToken.getId(), userForToken);
+				response.setMessage(token);
 				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
 			} else {
 				Response response = new Response();
@@ -96,82 +101,89 @@ public class UserController {
 	}
 
 
-	@RequestMapping(value = "/active/{jwt:.+}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> verifyToken(@PathVariable("jwt") String token) {
+	@RequestMapping(value = "/active/{jwt:.+}", method = RequestMethod.GET)
+	public ResponseEntity<Response> verifyToken(@PathVariable("jwt") String token, HttpServletResponse response) throws IOException {
+		//response.setContentType("application/json");
 		int id = TokenGenerator.verifyToken(token);
-		Response response = new Response();
+		System.out.print("in th eactivate");
+		Response responseMessage = new Response();
 		if (id != 0) {
 			User user = serviceImpl.getUserById(id);
 			if (user != null) {
 				serviceImpl.activeUser(id, user);
-				response.setMessage("User has been Activated");
-				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
+				responseMessage.setMessage("User has been Activated");
+				//response.sendRedirect("http://localhost:9090/ToDoApp/#!/login");
+				return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
 			}
-			response.setMessage("User is not available.");
-			return new ResponseEntity<Response>(response, HttpStatus.NOT_FOUND);
+			responseMessage.setMessage("User is not available.");
+			//response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration.html");
+			return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 		}
-		response.setMessage("Wrong id.");
-		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+		responseMessage.setMessage("Wrong id.");
+		//response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration.html");
+		return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 	}
 
 	
-	@RequestMapping(value = "/forgotPassword", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> forgotPassword(@RequestBody User user, HttpServletRequest request) {
-		Response response = new Response();
+	@RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
+	public ResponseEntity<Response> forgotPassword(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		System.out.println(user.getUserName());
+		Response responseMessage = new Response();
 		if (user.getUserName() != null) {
 			String url = request.getRequestURL().toString();
 			User users = serviceImpl.getUserByEmail(user.getUserName());
+			
 			boolean isSent = serviceImpl.forgotPassword(users, url);
+			System.out.println("isSent : "+isSent);
 			if (isSent) {
-				response.setMessage("Go on email, and verify the link.");
-				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
+				responseMessage.setMessage("Go on email, and verify the link.");
+				return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
+			}else{
+				responseMessage.setMessage("fill again the email and click on forgot password.");
+				return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 			}
-			response.setMessage("fill again the email and click on forgot password.");
-			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 		}
-		response.setMessage("email is not filled, please fill the email and click on forgot password.");
-		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+		responseMessage.setMessage("email is not filled, please fill the email and click on forgot password.");
+		return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 	}
 
 	
-	@RequestMapping(value = "/verifyUser/{jwt:.+}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> userVerify(@PathVariable("jwt") String token) {
+	@RequestMapping(value = "/verifyUser/{jwt:.+}", method = RequestMethod.GET)
+	public void userVerify(@PathVariable("jwt") String token, HttpSession session, HttpServletResponse response) throws IOException {
 		int id = TokenGenerator.verifyToken(token);
-		Response response = new Response();
+		session.setAttribute("id", id);
+		Response responseMessage = new Response();
 		if (id != 0) {
-			User user = serviceImpl.getUserById(id);
-			if (user != null) {
-				response.setMessage(
-						"You are verified Your key is " + user.getId() + " please reset your password with this key.");
-				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
-			}
-			response.setMessage("User Not Found");
-			return new ResponseEntity<Response>(response, HttpStatus.NOT_FOUND);
+			System.out.println("token verified");
+			//responseMessage.setMessage("You are verified Your key is " + user.getId() + " please reset your password with this key.");
+			response.sendRedirect("http://localhost:9090/ToDoApp/#!/resetpassword");
+		}else{
+			responseMessage.setMessage("you are not user.");
+			response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration");
 		}
-		response.setMessage("you are not user.");
-		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 	}
 	
-	@RequestMapping(value="/resetPassword", method=RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> resetPassword(@RequestBody PasswordUser passwordUser)
+	@RequestMapping(value="/resetPassword", method=RequestMethod.PUT)
+	public ResponseEntity<Response> resetPassword(@RequestBody PasswordUser passwordUser, HttpSession session, HttpServletResponse response) throws IOException
 	{
-		Response response=new Response();
+		Response responseMessage=new Response();
+		int userId=(int) session.getAttribute("id");
+		System.out.println("password : "+passwordUser.getPassword());
 		if(passwordUser.getPassword().equals(passwordUser.getConfirmPassword()))
 		{
-			int id=passwordUser.getId();
-			User user=serviceImpl.getUserById(id);
+			User user=serviceImpl.getUserById(userId);
 			String securePassword=BCrypt.hashpw(passwordUser.getPassword(), BCrypt.gensalt());
 			user.setPassword(securePassword);
-			User checkUser=serviceImpl.updateUser(user);
-			if(checkUser!=null)
-			{
-				response.setMessage("Password Reset Successfully.");
-				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
-			}
-			response.setMessage("Request not submited.");
-			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+			serviceImpl.updateUser(user);
+			
+			responseMessage.setMessage("Password Reset Successfully.");
+			return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
+			//response.sendRedirect("http://localhost:9090/ToDoApp/#!/login");
+			
+		}else{
+			responseMessage.setMessage("Password and confirmpassword is not matching, please reset again.");
+			//response.sendRedirect("http://localhost:9090/ToDoApp/#!/resetpassword");
+			return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 		}
-		response.setMessage("Password and confirmpassword is not matching, please reset again.");
-		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 	}
 }

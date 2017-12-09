@@ -2,8 +2,9 @@
 var app = angular.module('ToDo');
 
 app.controller('registrationController',function($scope,registrationService,$location){
+	console.log("inside registration");
 	$scope.registerUser= function(){
-		var a = registrationService.registerUser($scope.user,$scope.error);
+		var a = registrationService.registerUser($scope.user);
 		console.log(a);
 			a.then(function(response){
 				console.log(response.data.responseMessage);

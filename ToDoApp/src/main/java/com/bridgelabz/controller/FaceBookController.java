@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -60,7 +58,6 @@ public class FaceBookController {
 		String email= profile.get("email").asText();
 		
 		User user = serviceImpl.getUserByEmail(email);
-		
 		if(user==null) {
 			user = new User();
 			user.setfName(profile.get("name").asText());
@@ -73,12 +70,12 @@ public class FaceBookController {
     			response.setHeader("Authorization", token);
     			session.setAttribute("token", token);
     			errorMessage.setMessage("User Successfully registered.");
-    			response.sendRedirect("http://localhost:9090/ToDoApp/#!/home.html");
+    			response.sendRedirect("http://localhost:9090/ToDoApp/#!/login");
  			}
 			else
 			{
 				errorMessage.setMessage("User is not registered.");
-				response.sendRedirect("http://localhost:9090/ToDoApp/#!/login.html");
+				response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration");
 			}
 		}else {
 			
@@ -86,7 +83,7 @@ public class FaceBookController {
 			serviceImpl.updateUser(user);
 			session.setAttribute("token", token);
 			errorMessage.setMessage("User already exist.");
-			response.sendRedirect("http://localhost:9090/ToDoApp/#!/dummy");
+			response.sendRedirect("http://localhost:9090/ToDoApp/#!/home");
 		}
 	}
 }
