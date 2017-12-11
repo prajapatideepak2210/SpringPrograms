@@ -5,22 +5,15 @@ ToDo.controller('forgotpasswordController',function($scope,forgotpasswordService
 	$scope.forgotpassword= function(){
 		var a = forgotpasswordService.forgotpasswordUser($scope.user);
 		console.log(a);
-			a.then(function(response){
-				console.log(response.data.message);
-				localStorage.setItem('token',response.data.message);
-				
-				console.log("login success");
-				$location.path('forgotpassword');
-			},function(response){
-				if(response.status==409)
-					{
-						$scope.error=response.data.message;
-					}
-				else
-					{	
-						console.log("fail");
-						$scope.error="Enter valid data";
-					}
-			});
+		a.then(function(response){
+			console.log(response.data.message);
+			localStorage.setItem('token',response.data.message);
+			$scope.errorMessage=response.data.message;
+			$location.path('forgotpassword');
+		},function(response){
+
+			$scope.errorMessage=response.data.message;
+
+		});
 	}
 });

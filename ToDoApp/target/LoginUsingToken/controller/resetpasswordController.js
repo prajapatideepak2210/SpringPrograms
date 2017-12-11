@@ -7,12 +7,18 @@ ToDo.controller('resetpasswordController', function($scope,
 				$scope.error);
 		console.log(a);
 		a.then(function(response) {
+			console.log("edcghwjehfcgjwhegfwjhdfwjhfdwejhfdwejhdfwejhd");
 			console.log(response.data.message);
 			localStorage.setItem('message', response.data.message);
-			$scope.errorMessage=response.data.message;
-			$location.path('resetpassword');
+			$location.path('login');
 		}, function(response) {
-			$scope.errorMessage=response.data.message;
+			if (response.status == 400) {
+				$scope.error = response.data.message;
+				$location.path('registration')
+			} else {
+				$scope.error = message;
+				$location.path('login')
+			}
 		});
 	}
 });

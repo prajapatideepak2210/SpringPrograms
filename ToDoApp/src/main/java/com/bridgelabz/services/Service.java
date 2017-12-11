@@ -8,14 +8,15 @@ import com.bridgelabz.model.User;
 public interface Service {
 	/**
 	 * @param user
-	 * @return boolean
+	 * @return String
 	 * @Description This method is used to Login purpose.
 	 */
 	String login(User user);
 	
 	/**
 	 * @param user
-	 * @return boolean This method is used to register the user.
+	 * @return User 
+	 * This method is used to register the user.
 	 */
 	User add(User user, String url);
 	

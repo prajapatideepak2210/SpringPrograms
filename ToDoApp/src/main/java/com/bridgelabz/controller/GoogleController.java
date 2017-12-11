@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.HttpStatus;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +35,7 @@ public class GoogleController {
 	}
 	
 	@RequestMapping(value="/connectgoogle")
-	public ResponseEntity<Response> redirectFromGoogle(HttpServletRequest request, HttpServletResponse response)
+	public void redirectFromGoogle(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		Response responseForMessage=new Response();
 		String sessionState = (String) request.getSession().getAttribute("STATE");
@@ -43,11 +43,13 @@ public class GoogleController {
 		
 		if (sessionState == null || !sessionState.equals(googlestate)) {
 			response.sendRedirect("googleLogin");
+			return;
 		}
 
 		String error = request.getParameter("error");
 		if (error != null && error.trim().isEmpty()) {
-			response.sendRedirect("login");
+			response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration");
+			return;
 		}
 		
 		String authCode = request.getParameter("code");
@@ -64,7 +66,8 @@ public class GoogleController {
 			user.setPassword("");
 			userService.addSocialUser(user);
 			responseForMessage.setMessage("Hello "+user.getfName()+" you are new user.");
-			return new ResponseEntity<Response>(responseForMessage, HttpStatus.ACCEPTED);
+			response.sendRedirect("http://localhost:9090/ToDoApp/#!/home");
+			//return new ResponseEntity<Response>(responseForMessage, HttpStatus.ACCEPTED);
 		}
 		else{
 			user = userService.getUserByEmail(user.getUserName());
@@ -73,7 +76,8 @@ public class GoogleController {
 			Cookie accCookie = new Cookie("socialaccessToken", token);
 			response.addCookie(accCookie);
 			responseForMessage.setMessage("Hello "+user.getfName()+" you are alredy visited here.");
-			return new ResponseEntity<Response>(responseForMessage, HttpStatus.ACCEPTED);
+			response.sendRedirect("http://localhost:9090/ToDoApp/#!/home");
+			//return new ResponseEntity<Response>(responseForMessage, HttpStatus.ACCEPTED);
 		}
 	}
 }

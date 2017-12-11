@@ -4,6 +4,9 @@
 	
 	<form name="userForm">
 		<h3 style="text-align: center;">Registration Form</h3>
+		
+		<center><p style="color: red;" ng-bind="errorMessage"></p></center>
+		
 		<md-input-container class="md-block"> <label>First Name</label>
 		 	<input ng-pattern="/^[a-zA-Z\s]*$/" type="text" name="fName"
 		class="form-control" ng-model="user.fName" required>

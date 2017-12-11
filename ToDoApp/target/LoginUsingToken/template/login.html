@@ -17,31 +17,32 @@
 		<div ng-message="required">This is required.</div>
 	</div>
 	</md-input-container>
-	</div>
+	
 	<md-input-container class="md-block"> <label>Enter the password</label>
 	<input type="password" name="password" class="form-control"
 		ng-model="user.password" required>
 		
 	<div ng-messages="userForm.password.$error">
 		<div ng-message="required">This is required.</div>
-	</div><br/>
+	</div>
 	<p>
 		<span id="errmsg"></span>
 	</p>
 	</md-input-container>
+	
 	<md-button md-no-ink class="md-primary" ng-click="loginUser()" ng-disabled="loginform.$invalid" 
-	style="background: #DB7093; width: 465px; align: center; margin-left: 3px;px;">Login</md-button><br/>
+	style="background: #DB7093; width: 465px; align: center; margin-left: 3px;">Login</md-button>
 	
 	<div style="height: 15px; margin-bottom: 5px;">
 		<h6 style="; margin-top:5px; margin-bottom: 5px;">
-		<a href="forgotPassword" style="color:blue; margin-left: 10px;">forgot password?</a>
-		<a href="registration.html" style="color:blue; align: right; margin-left: 265px;">new user?</a>
+		<a href="#!/forgotpassword" style="color:blue; margin-left: 10px;">forgot password?</a>
+		<a href="#!/registration" style="color:blue; align: right; margin-left: 250px;">registration?</a>
 		</h6>
 	</div>
 
-	<button class="loginBtn loginBtn--facebook"><a href="facebookLogin">Facebook Login</a>
+	<button class="loginBtn loginBtn--facebook"><a href="facebookLogin" style="text-decoration: none;">Facebook Login</a>
 	</button><br/>
-	<button class="loginBtn loginBtn--google"><a href="googleLogin">GoogleLogin</a>
+	<button class="loginBtn loginBtn--google"><a href="" style="text-decoration: none;">GoogleLogin</a>
 	</button>
 </form>
 	

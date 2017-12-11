@@ -70,7 +70,7 @@ public class FaceBookController {
     			response.setHeader("Authorization", token);
     			session.setAttribute("token", token);
     			errorMessage.setMessage("User Successfully registered.");
-    			response.sendRedirect("http://localhost:9090/ToDoApp/#!/login");
+    			response.sendRedirect("http://localhost:9090/ToDoApp/#!/home");
  			}
 			else
 			{

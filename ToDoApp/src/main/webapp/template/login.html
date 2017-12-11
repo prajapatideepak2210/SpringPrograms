@@ -3,17 +3,16 @@
 	flex-gt-sm="38" flex-gt-md="40" style=" max-height:700px"> <md-card-content>
 
 <form name="userForm">
-	<h1 class="sfYUmb" id="headingText"
-		jsname="z6sL2b"><b>LOG IN</b></h1>
+	<h1 class="formHeading" ><b>LOG IN</b></h1>
 
 	<center>
-		<font color="red"><p ng-bind="error" ng-disable></p></font>
+		<p style="color: red;" ng-bind="errorMessage"></p>
 	</center>
 
 	<md-input-container class="md-block"> <label>Enter the email</label>
-	<input type="email" name="email" class="form-control"
+	<input type="email" name="userName" class="form-control"
 		ng-model="user.userName" required>
-	<div ng-messages="userForm.email.$error" role="alert">
+	<div ng-messages="userForm.userName.$error" role="alert">
 		<div ng-message="required">This is required.</div>
 	</div>
 	</md-input-container>
@@ -40,9 +39,9 @@
 		</h6>
 	</div>
 
-	<button class="loginBtn loginBtn--facebook"><a href="facebookLogin" style="text-decoration: none;">Facebook Login</a>
+	<button class="loginButton facebookButton"><a href="facebookLogin" style="text-decoration: none;">Facebook Login</a>
 	</button><br/>
-	<button class="loginBtn loginBtn--google"><a href="" style="text-decoration: none;">GoogleLogin</a>
+	<button class="loginButton googleButton"><a href="googleLogin" style="text-decoration: none;">GoogleLogin</a>
 	</button>
 </form>
 	

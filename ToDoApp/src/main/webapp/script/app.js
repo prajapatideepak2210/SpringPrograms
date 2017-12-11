@@ -32,5 +32,10 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 				templateUrl : 'template/resetpassword.html',
 				controller : 'resetpasswordController'
 			})
+			
+			.state('confirmation',{
+				url : '/confirmation',
+				templateUrl : 'template/confirmation.html'
+			})
 			$urlRouterProvider.otherwise('/login');
 		} ]);

@@ -86,7 +86,7 @@ public class UserDaoImpl implements UserDao{
 	
 	/**
 	 * @param user
-	 * @return booelan
+	 * @return User
 	 * @Description This method is used to check user is duplicate or not.
 	 * If user is duplicate than it returns true otherwise false.
 	 */

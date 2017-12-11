@@ -80,9 +80,9 @@ public class Validator{
 	
 	/**
 	 * @param user
-	 * @return boolean
+	 * @return String
 	 * @Description This method is used to check User is Valid or not.
-	 * if User is correct than it returns true, otherwise it returns false.
+	 * if User is correct than it returns null, otherwise it returns related message.
 	 */
 	public static String isUserValid(User user)
 	{

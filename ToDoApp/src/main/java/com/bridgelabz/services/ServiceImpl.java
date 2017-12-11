@@ -77,9 +77,9 @@ public class ServiceImpl implements Service{
 					}
 				}
 			}
-			return checkUser;
+			return null;
 		}
-		return checkUser;
+		return null;
 	}
 	
 	public int addSocialUser(User user)
@@ -100,14 +100,14 @@ public class ServiceImpl implements Service{
 	 */
 	public boolean isUserAvailable(User loginUser)
 	{
-		System.out.println(loginUser.getUserName());
 		List<User> list=userDao.getUser();
 		Iterator<User> iterator=list.iterator();
 		User user=new User();
 		while(iterator.hasNext())
 		{
 			user=iterator.next();
-			if(user.getUserName().equals(loginUser.getUserName()))
+			if(user.getUserName().equals(loginUser.getUserName()) && 
+					user.getPassword().equals(loginUser.getPassword()))
 			{
 				return true;
 			}

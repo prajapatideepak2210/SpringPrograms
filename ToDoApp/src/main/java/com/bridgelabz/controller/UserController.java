@@ -47,16 +47,15 @@ public class UserController {
 	public ResponseEntity<Response> addUser(@RequestBody User user, HttpServletRequest request) {
 
 		Response response = new Response();
-		System.out.println(user.getfName()+","+user.getlName()+", "+user.getContactNumber()+", "+user.getUserName()+", "+user.getAddress());
 		String message = Validator.isUserValid(user);
-		String url = request.getRequestURL().toString();
 		if (message == null) {
+			String url = request.getRequestURL().toString();
 			User checkUser=serviceImpl.add(user, url);
 			if (checkUser!=null) {
 
 				response.setMessage(
 						"User Successfully Registered, user got a mail for verifing please go there and verify.");
-				return new ResponseEntity<Response>(response, HttpStatus.CREATED);
+				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
 			}
 			response.setMessage("User Already Exist.");
 			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
@@ -81,11 +80,11 @@ public class UserController {
 			} else {
 				Response response = new Response();
 				response.setMessage("UserName and Password Mismatch.");
-				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
+				return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 			}
 		} else {
 			Response response = new Response();
-			response.setMessage("User is not alvailable, please register first.");
+			response.setMessage("User is not available, please register first.");
 			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -102,48 +101,45 @@ public class UserController {
 
 
 	@RequestMapping(value = "/active/{jwt:.+}", method = RequestMethod.GET)
-	public ResponseEntity<Response> verifyToken(@PathVariable("jwt") String token, HttpServletResponse response) throws IOException {
-		//response.setContentType("application/json");
+	public void verifyToken(@PathVariable("jwt") String token, HttpServletResponse response) throws IOException {
 		int id = TokenGenerator.verifyToken(token);
-		System.out.print("in th eactivate");
-		Response responseMessage = new Response();
+		//Response responseMessage = new Response();
 		if (id != 0) {
 			User user = serviceImpl.getUserById(id);
 			if (user != null) {
 				serviceImpl.activeUser(id, user);
-				responseMessage.setMessage("User has been Activated");
-				//response.sendRedirect("http://localhost:9090/ToDoApp/#!/login");
-				return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
+				//responseMessage.setMessage("User has been Activated");
+				response.sendRedirect("http://localhost:9090/ToDoApp/#!/login");
+				//return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
 			}
-			responseMessage.setMessage("User is not available.");
-			//response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration.html");
-			return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
+			//responseMessage.setMessage("User is not available.");
+			response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration.html");
+			//return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 		}
-		responseMessage.setMessage("Wrong id.");
-		//response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration.html");
-		return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
+		//responseMessage.setMessage("Wrong id.");
+		response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration.html");
+		//return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 	}
 
 	
 	@RequestMapping(value = "/forgotPassword", method = RequestMethod.POST)
 	public ResponseEntity<Response> forgotPassword(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println(user.getUserName());
 		Response responseMessage = new Response();
-		if (user.getUserName() != null) {
+		
+		if (user.getUserName() != null && serviceImpl.isUserAvailable(user)) {
 			String url = request.getRequestURL().toString();
 			User users = serviceImpl.getUserByEmail(user.getUserName());
 			
 			boolean isSent = serviceImpl.forgotPassword(users, url);
-			System.out.println("isSent : "+isSent);
 			if (isSent) {
 				responseMessage.setMessage("Go on email, and verify the link.");
 				return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
 			}else{
-				responseMessage.setMessage("fill again the email and click on forgot password.");
+				responseMessage.setMessage("operation is failed please try after some time.");
 				return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 			}
 		}
-		responseMessage.setMessage("email is not filled, please fill the email and click on forgot password.");
+		responseMessage.setMessage("email is not available, please enter correct email.");
 		return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 	}
 
@@ -154,7 +150,6 @@ public class UserController {
 		session.setAttribute("id", id);
 		Response responseMessage = new Response();
 		if (id != 0) {
-			System.out.println("token verified");
 			//responseMessage.setMessage("You are verified Your key is " + user.getId() + " please reset your password with this key.");
 			response.sendRedirect("http://localhost:9090/ToDoApp/#!/resetpassword");
 		}else{
@@ -168,7 +163,6 @@ public class UserController {
 	{
 		Response responseMessage=new Response();
 		int userId=(int) session.getAttribute("id");
-		System.out.println("password : "+passwordUser.getPassword());
 		if(passwordUser.getPassword().equals(passwordUser.getConfirmPassword()))
 		{
 			User user=serviceImpl.getUserById(userId);
